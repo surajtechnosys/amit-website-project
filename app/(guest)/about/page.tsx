@@ -100,7 +100,7 @@ function ServiceCard({
 }) {
   return (
     <Link href={href} className="group block h-full">
-      <article className="relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600/40">
+      <article className="relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-orange-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600/40">
         <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accent}`} />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,23,42,0.025),transparent_35%)]" />
 
@@ -137,16 +137,16 @@ export default function AboutPage() {
     <div className="relative overflow-hidden bg-[#eef3f8] text-slate-900">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(15,23,42,0.05),transparent_34%),radial-gradient(circle_at_80%_0,rgba(8,145,178,0.08),transparent_26%),linear-gradient(180deg,rgba(248,250,252,0.92)_0%,rgba(236,242,248,1)_100%)]" />
 
-      <section className="relative isolate overflow-hidden pt-28 sm:pt-32">
+      <section className="relative isolate overflow-hidden py-28 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-medium text-slate-700 shadow-[0_12px_30px_rgba(15,23,42,0.05)] backdrop-blur">
-                <ShieldCheck className="size-4 text-cyan-700" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-500 bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-[0_12px_30px_rgba(15,23,42,0.05)] backdrop-blur">
+                <ShieldCheck className="size-4 text-white" />
                 About AS Services
               </div>
 
-              <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance text-slate-950 sm:text-5xl lg:text-6xl">
+              <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance text-orange-500 sm:text-5xl lg:text-6xl">
                 Focused services that help teams run better.
               </h1>
 
@@ -157,7 +157,7 @@ export default function AboutPage() {
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg" className="rounded-full px-6">
+                <Button asChild size="lg" variant="default" className="rounded-full px-6 bg-blue-500 text-white hover:bg-blue-700">
                   <Link href="/contact" className="inline-flex items-center gap-2">
                     Talk to us
                     <ArrowRight className="size-4" />
@@ -167,7 +167,7 @@ export default function AboutPage() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="rounded-full border-slate-300 bg-white/70 px-6"
+                  className="rounded-full border-blue-600 bg-white/70 px-6 text-blue-500"
                 >
                   <Link href="/services" className="inline-flex items-center gap-2">
                     View services
@@ -180,7 +180,7 @@ export default function AboutPage() {
                 {strengths.map((strength) => (
                   <span
                     key={strength}
-                    className="inline-flex items-center rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-medium text-slate-600 shadow-[0_10px_24px_rgba(15,23,42,0.04)]"
+                    className="inline-flex items-center rounded-full border border-blue-600 bg-white/90 px-4 py-2 text-sm font-medium text-blue-600 shadow-[0_10px_24px_rgba(15,23,42,0.04)]"
                   >
                     {strength}
                   </span>
@@ -189,17 +189,14 @@ export default function AboutPage() {
             </div>
 
             <div className="relative">
-              <div className="absolute -left-6 top-8 h-28 w-28 rounded-full bg-cyan-300/15 blur-3xl" />
-              <div className="absolute -right-6 bottom-8 h-32 w-32 rounded-full bg-slate-300/30 blur-3xl" />
-
-              <div className="relative rounded-[2rem] border border-slate-200 bg-white/95 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-6">
-                <div className="rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-[#eef6f8] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-                  <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.34em] text-slate-500">
+              <div className="relative rounded-[2rem] border border-blue-400 border-[2px] bg-white/95 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-6">
+                <div className="">
+                  <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.34em] text-orange-500">
                     <ShieldCheck className="size-4 text-cyan-700" />
                     Our focus
                   </div>
 
-                  <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
+                  <h2 className="mt-4 text-2xl font-semibold tracking-tight text-blue-500 sm:text-3xl">
                     Clear service areas. Clean delivery. Measurable support.
                   </h2>
 
@@ -231,14 +228,14 @@ export default function AboutPage() {
                       return (
                         <div
                           key={item.label}
-                          className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+                          className="flex items-start gap-4 rounded-2xl border border-blue-500 border-[2px] bg-white px-4 py-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
                         >
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-[0_10px_24px_rgba(15,23,42,0.18)]">
+                          <div className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-blue-500 text-white shadow-[0_10px_24px_rgba(15,23,42,0.18)]">
                             <Icon className="size-4" />
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-sm font-semibold text-slate-950">
+                              <h3 className="text-sm font-semibold text-orange-500">
                                 {item.label}
                               </h3>
                               <CheckCircle2 className="size-4 text-cyan-600" />
@@ -258,13 +255,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="relative py-16 sm:py-20">
+      <section className="relative py-16 sm:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.34em] text-slate-500">
+            <p className="text-sm font-semibold uppercase tracking-[0.34em] text-orange-500">
               Core services
             </p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-balance text-slate-950 sm:text-4xl lg:text-5xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-balance text-blue-500 sm:text-4xl lg:text-5xl">
               The main services we provide.
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
@@ -282,7 +279,7 @@ export default function AboutPage() {
                 icon={service.icon}
                 title={service.title}
                 description={service.description}
-                points={service.cardPoints}
+                points={service.points}
                 accent={service.accent}
               />
             ))}
@@ -290,30 +287,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="relative py-16 sm:py-20">
+      <section className="relative py-16 sm:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-[0_18px_50px_rgba(15,23,42,0.05)] backdrop-blur lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:p-8">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.34em] text-slate-500">
-                Why clients choose us
-              </p>
-              <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
-                We keep the experience simple, dependable, and easy to manage.
-              </h2>
-            </div>
-
-            <p className="text-sm leading-7 text-slate-600 sm:text-base">
-              The goal is not visual noise or excessive detail. It is to give
-              clients a clear understanding of what we do, how we do it, and
-              why the model works.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-[#062B36] text-white shadow-[0_24px_80px_rgba(2,6,23,0.2)]">
+          <div className="overflow-hidden rounded-[2rem] border border-orange-200 bg-black text-white shadow-[0_24px_80px_rgba(2,6,23,0.2)]">
             <div className="flex flex-col gap-6 p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:p-12">
               <div className="max-w-2xl">
                 <p className="text-sm font-semibold uppercase tracking-[0.34em] text-white/55">
