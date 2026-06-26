@@ -8,7 +8,7 @@ export function GuestGlobalDeliveryModelSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <div className="inline-block">
-            <h2 className="mt-4 text-2xl font-semibold tracking-tight text-balance text-slate-950 sm:text-3xl lg:text-4xl">
+            <h2 className="mt-4 text-2xl font-semibold tracking-tight text-balance text-orange-500 sm:text-3xl lg:text-4xl">
               OUR GLOBAL DELIVERY MODEL
             </h2>
 

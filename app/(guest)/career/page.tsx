@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
+
 export const metadata: Metadata = {
   title: "Careers | AS Services",
   description:
@@ -79,18 +80,17 @@ function FieldLabel({
 export default function CareerPage() {
   return (
     <div className="bg-white text-slate-900">
-      <section className="relative isolate overflow-hidden bg-[#062B36] pt-32 text-white sm:pt-36">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(34,211,238,0.18),transparent_30%),radial-gradient(circle_at_82%_12%,rgba(168,85,247,0.16),transparent_28%),linear-gradient(135deg,rgba(15,23,42,0.1),rgba(15,23,42,0.72))]" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
-
+      <section className="relative isolate overflow-hidden bg-black/90 pt-32 text-white sm:pt-36">
+        <div className="absolute inset-0 " />
+      
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-cyan-100 backdrop-blur">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-500 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-500  hover:bg-blue-500 hover:text-white">
               <Sparkles className="size-4" />
               Build your next move with AS Services
             </div>
 
-            <h1 className="mt-7 text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            <h1 className="mt-7 text-4xl font-semibold tracking-tight text-balance text-orange-500 sm:text-5xl lg:text-6xl">
               Advance your career in operations, analytics, and IT services.
             </h1>
 
@@ -103,21 +103,21 @@ export default function CareerPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#apply"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-300 px-6 text-sm font-semibold text-slate-950 transition hover:bg-white"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 px-6 text-sm font-semibold transition"
               >
                 Apply Now
                 <ArrowRight className="size-4" />
               </a>
               <a
                 href="#openings"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-orange-500 px-6 text-sm font-semibold text-orange-500 transition hover:bg-orange-500 hover:text-white"
               >
                 View Roles
               </a>
             </div>
           </div>
 
-          <div className="grid content-end gap-4 sm:grid-cols-2 lg:pt-12">
+          <div className="grid content-start gap-4 sm:grid-cols-2">
             {[
               { icon: UsersRound, label: "Team Culture", value: "Collaborative" },
               { icon: GraduationCap, label: "Learning", value: "Guided training" },
@@ -126,11 +126,11 @@ export default function CareerPage() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="rounded-2xl border border-white/12 bg-white/10 p-5 backdrop-blur"
+                className="rounded-2xl border border-blue-500 bg-white/10 p-5 backdrop-blur"
               >
-                <item.icon className="size-6 text-cyan-200" />
+                <item.icon className="size-6 text-orange-200" />
                 <p className="mt-5 text-sm text-slate-300">{item.label}</p>
-                <p className="mt-1 text-xl font-semibold text-white">
+                <p className="mt-1 text-xl font-semibold text-orange-500">
                   {item.value}
                 </p>
               </div>
@@ -142,7 +142,7 @@ export default function CareerPage() {
       <section id="openings" className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-orange-500 sm:text-4xl">
               Current Career Opportunities
             </h2>
             <p className="mt-4 text-base leading-7 text-slate-600">
@@ -155,23 +155,23 @@ export default function CareerPage() {
             {openings.map((job) => (
               <article
                 key={job.title}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-[0_14px_40px_rgba(15,23,42,0.05)]"
+                className="rounded-2xl border border-blue-500 bg-slate-50 p-6 shadow-[0_14px_40px_rgba(15,23,42,0.05)]"
               >
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-500 text-white">
                   <BriefcaseBusiness className="size-5" />
                 </div>
-                <h3 className="mt-5 text-xl font-semibold text-slate-950">
+                <h3 className="mt-5 text-xl font-semibold text-orange-500">
                   {job.title}
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600">
                   {job.summary}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-600 bg-white px-3 py-1.5 text-xs font-semibold text-blue-600">
                     <Clock3 className="size-3.5" />
                     {job.type}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-600 bg-white px-3 py-1.5 text-xs font-semibold text-blue-600">
                     <MapPin className="size-3.5" />
                     {job.location}
                   </span>
@@ -182,10 +182,10 @@ export default function CareerPage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16 sm:py-20">
+      <section className="bg-blue-50 py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <div>
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-orange-500 sm:text-4xl">
               Why candidates choose us
             </h2>
             <p className="mt-4 text-base leading-7 text-slate-600">
@@ -198,7 +198,7 @@ export default function CareerPage() {
             {benefits.map((benefit) => (
               <div
                 key={benefit}
-                className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-5"
+                className="flex items-start gap-3 rounded-2xl border border-orange-200 bg-white p-5"
               >
                 <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-500" />
                 <p className="text-sm leading-6 text-slate-700">{benefit}</p>
@@ -210,7 +210,7 @@ export default function CareerPage() {
 
       <section id="apply" className="bg-white py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <aside className="rounded-2xl border border-slate-200 bg-[#062B36] p-6 text-white sm:p-8">
+          <aside className="rounded-2xl border border-slate-200 bg-blue-800 p-6 text-white sm:p-8">
             <BadgeCheck className="size-10 text-cyan-200" />
             <h2 className="mt-6 text-3xl font-semibold tracking-tight">
               Candidate Application
@@ -227,7 +227,7 @@ export default function CareerPage() {
                   key={step}
                   className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
                 >
-                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-cyan-300 text-xs font-bold text-slate-950">
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-orange-300 text-xs font-bold text-slate-950">
                     {index + 1}
                   </span>
                   <span className="text-sm font-medium text-slate-100">
@@ -238,7 +238,7 @@ export default function CareerPage() {
             </div>
           </aside>
 
-          <form className="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.06)] sm:p-8">
+          <form className="rounded-2xl border border-blue-500 bg-slate-50 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.06)] sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="grid gap-2">
                 <FieldLabel htmlFor="full-name">Full Name</FieldLabel>
@@ -352,7 +352,7 @@ export default function CareerPage() {
               <p className="text-xs leading-5 text-slate-500">
                 By applying, you confirm the information shared is accurate.
               </p>
-              <Button type="submit" size="lg" className="h-12 rounded-full px-6">
+              <Button type="submit" size="lg" variant="default" className="h-12 rounded-full px-6 bg-blue-500">
                 Submit Application
                 <Send className="size-4" />
               </Button>

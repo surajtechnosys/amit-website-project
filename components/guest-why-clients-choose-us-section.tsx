@@ -33,7 +33,7 @@ function ReasonCard({
   summary: string
 }) {
   return (
-    <article className="group relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white/75 p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.1)]">
+    <article className="group relative overflow-hidden rounded-[1.75rem] border border-orange-200 bg-white/75 p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.1)]">
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sky-400 via-violet-400 to-emerald-400" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.06),transparent_35%)]" />
 
@@ -58,10 +58,10 @@ export function GuestWhyClientsChooseUsSection() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.34em] text-slate-500">
+          <p className="text-sm font-semibold uppercase tracking-[0.34em] text-blue-500">
             Why Clients Choose Us
           </p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-balance text-slate-950 sm:text-4xl lg:text-5xl">
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-balance text-orange-500 sm:text-4xl lg:text-5xl">
             Built to scale with clarity, control, and confidence.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
