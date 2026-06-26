@@ -176,6 +176,15 @@ export function GuestNavbar() {
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
+                
+                <NavigationMenuItem>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center rounded-full bg-violet-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-violet-500/20 transition hover:bg-violet-400"
+                  >
+                    Get in Touch
+                  </Link>
+                </NavigationMenuItem>
                 <NavigationMenuItem>
                   <GuestEnquiryPopup
                     triggerClassName="inline-flex items-center gap-2 rounded-full bg-cyan-300 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-sm shadow-cyan-500/20 transition hover:bg-white"
