@@ -23,3 +23,8 @@ export function formatError(error: any) {
     return "Something went wrong"
   }
 }
+
+export function omitTimestamps<T extends { createdAt: any; updatedAt: any }>(obj: T) {
+  const { createdAt, updatedAt, ...rest } = obj;
+  return rest;
+}

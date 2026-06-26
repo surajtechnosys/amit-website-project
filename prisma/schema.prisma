@@ -18,15 +18,14 @@ enum Status {
 }
 
 model User {
-  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name          String?
-  email         String    @unique(map: "user_email_idx")
-  image         String?
-  password      String
-  roleId        String    @db.Uuid
-  accounts      Account[]
-  sessions      Session[]
-  status        Status    @default(ACTIVE)
+  id       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name     String?
+  email    String    @unique(map: "user_email_idx")
+  image    String?
+  password String
+  accounts Account[]
+  sessions Session[]
+  status   Status    @default(ACTIVE)
 
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt @db.Timestamp(6)
@@ -61,4 +60,30 @@ model Session {
 
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt @db.Timestamp(6)
+}
+
+model Banner {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image       String?
+  title       String
+  description String  @db.Text
+  status      Status  @default(ACTIVE)
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @db.Timestamp(6)
+}
+
+model Enquiry {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullName    String
+  email       String
+  phoneNumber String
+  companyName String?
+  subject     String
+  message     String  @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("enquiries")
 }

@@ -117,7 +117,7 @@ export function GuestServicesSection() {
 
         <div className="mt-10 flex justify-start">
           <Button asChild size="lg" className="rounded-full px-6">
-            <Link href="/services" className="inline-flex items-center gap-2">
+            <Link href="/service" className="inline-flex items-center gap-2">
               View All Services
               <ArrowRight className="size-4" />
             </Link>

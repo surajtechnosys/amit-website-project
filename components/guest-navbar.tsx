@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import logo from "../images/AS-Services-Logo.jpg";
+import { GuestEnquiryPopup } from "@/components/guest-enquiry-popup";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -17,27 +18,27 @@ import {
 const services = [
   {
     title: "Support Services",
-    href: "/services/support",
+    href: "/service#technical-support",
     description: "Help desk, incident response and technical support.",
   },
   {
     title: "Data Analytics & Dashboards",
-    href: "/services/data-analytics",
+    href: "/service#analytics",
     description: "Business intelligence and dashboard reporting.",
   },
   {
     title: "IT Consulting Services",
-    href: "/services/consulting",
+    href: "/service#consulting",
     description: "Strategy, planning, and technical advisory.",
   },
   {
     title: "Technical Support Services",
-    href: "/services/technical-support",
+    href: "/service#technical-support",
     description: "Ongoing system maintenance and support.",
   },
   {
     title: "IT Managed Services",
-    href: "/services/managed",
+    href: "/service#managed-services",
     description: "Managed infrastructure and cloud operations.",
   },
 ];
@@ -134,7 +135,7 @@ export function GuestNavbar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink
-                    href="/careers"
+                    href="/career"
                     className={[
                       "text-sm font-semibold transition-colors",
                       scrolled
@@ -176,12 +177,10 @@ export function GuestNavbar() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center rounded-full bg-violet-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-violet-500/20 transition hover:bg-violet-400"
-                  >
-                    Get in Touch
-                  </Link>
+                  <GuestEnquiryPopup
+                    triggerClassName="inline-flex items-center gap-2 rounded-full bg-cyan-300 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-sm shadow-cyan-500/20 transition hover:bg-white"
+                    triggerLabel="Enquiry Us"
+                  />
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -228,7 +227,7 @@ export function GuestNavbar() {
                 </div>
               </div>
               <Link
-                href="/careers"
+                href="/career"
                 className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
                 onClick={() => setMobileOpen(false)}
               >
@@ -241,6 +240,10 @@ export function GuestNavbar() {
               >
                 Contact us
               </Link>
+              <GuestEnquiryPopup
+                triggerClassName="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-3 py-3 text-base font-semibold text-white transition hover:bg-cyan-700"
+                triggerLabel="Enquiry Us"
+              />
             </div>
           </div>
         </div>

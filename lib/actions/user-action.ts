@@ -2,10 +2,9 @@
 
 import { prisma } from "../db/prisma-helper";
 import { userSchema } from "../validators";
-import { formatError } from "../utils";
+import { formatError, omitTimestamps } from "../utils";
 import bcrypt from "bcrypt";
-import { createNotification } from "@/lib/actions/notification-action";
-import { User } from "@/types";
+import { User } from "../types";
 import { z } from "zod";
 
 type ActionResponse = {
@@ -21,7 +20,6 @@ function mapUser(u: any): User {
     image: u.image ?? null,
     status: u.status,
     password: u.password,
-    roleId: u.roleId,
     createdAt: u.createdAt.toISOString(),
     updatedAt: u.updatedAt?.toISOString(),
   };
@@ -48,21 +46,14 @@ export async function createUser(
 
     const hashedPassword = await bcrypt.hash(user.password, 10);
 
-    const createdUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         name: user.name,
         email: user.email,
         image: imageValue,
         password: hashedPassword,
         status: user.status,
-        roleId: user.roleId,
       },
-    });
-
-    await createNotification({
-      title: "New User Created",
-      message: `${createdUser.name} has been added`,
-      type: "USER_CREATE",
     });
 
     return {
@@ -80,7 +71,7 @@ export async function createUser(
 export async function getUserById(id: string) {
   try {
     const user = await prisma.user.findUnique({
-      where: { id },
+      where: { id }
     });
 
     if (!user) {
@@ -92,7 +83,7 @@ export async function getUserById(id: string) {
 
     return {
       success: true,
-      data: mapUser(user), 
+      data: omitTimestamps(user), 
       message: "User fetched successfully",
     };
   } catch (error) {
@@ -120,7 +111,6 @@ export async function updateUser(
       email: user.email,
       image: imageValue,
       status: user.status,
-      roleId: user.roleId,
     };
 
     if (user.password) {
