@@ -104,7 +104,7 @@ export function GuestHeroSection() {
                 Global delivery from India
               </p>
 
-              <h1 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-[3.15rem]">
+              <h1 className="mt-5 max-w-2xl text-4xl text-orange-500 font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-[3.15rem]">
                 Global Business Support Services Delivered from India
               </h1>
 
@@ -118,7 +118,7 @@ export function GuestHeroSection() {
                 <Button
                   asChild
                   size="lg"
-                  className="rounded-full bg-white px-6 text-slate-950 shadow-none hover:bg-slate-100"
+                  className="rounded-full bg-orange-500 text-white px-6 shadow-none hover:bg-orange-600"
                 >
                   <Link href="#services" className="inline-flex items-center gap-2">
                     Explore Services
@@ -130,7 +130,7 @@ export function GuestHeroSection() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="rounded-full border-white/20 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
+                  className="rounded-full border-blue-500 bg-transparent px-6 text-blue-500 hover:bg-blue-600 hover:text-white"
                 >
                   <Link href="/contact" className="inline-flex items-center gap-2">
                     Join Our Team
@@ -147,7 +147,7 @@ export function GuestHeroSection() {
                   {trustMetrics.map((metric) => (
                     <div
                       key={metric.label}
-                      className="rounded-2xl border border-white/12 bg-white/8 px-4 py-4 backdrop-blur"
+                      className="rounded-2xl border border-blue-500 bg-white/8 px-4 py-4 backdrop-blur"
                     >
                       <div className="text-3xl font-semibold tracking-tight text-white sm:text-[2rem]">
                         <AnimatedCounter
@@ -156,7 +156,7 @@ export function GuestHeroSection() {
                           active={metricsVisible}
                         />
                       </div>
-                      <p className="mt-1 text-sm font-medium text-white/72">
+                      <p className="mt-1 text-sm font-medium text-orange-500">
                         {metric.label}
                       </p>
                     </div>
@@ -168,7 +168,7 @@ export function GuestHeroSection() {
                 {trustTags.map((tag) => (
                   <div
                     key={tag}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-sm text-white/78 backdrop-blur"
+                    className="inline-flex items-center gap-2 rounded-full border border-blue-500 bg-white/8 px-4 py-2 text-sm text-white/78 backdrop-blur"
                   >
                     <CheckCircle2 className="size-4 text-emerald-300" />
                     {tag}
@@ -178,7 +178,7 @@ export function GuestHeroSection() {
             </div>
 
             <div className="relative hidden lg:block">
-              <div className="absolute inset-0 -translate-x-6 rounded-[2.5rem] border border-white/10 bg-white/6 blur-0" />
+              <div className="absolute" />
               <div className="relative rounded-[2.25rem] border border-white/12 bg-slate-950/35 p-6 shadow-[0_24px_80px_rgba(2,6,23,0.35)] backdrop-blur-md">
                 <div className="rounded-[1.6rem] border border-white/10 bg-white/6 p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.32em] text-white/55">

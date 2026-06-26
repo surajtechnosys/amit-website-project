@@ -71,7 +71,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <article className="group h-full overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+    <article className="group overflow-hidden rounded-[2rem] border border-[2px] border-orange-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-transform duration-300 hover:-translate-y-1">
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={testimonial.image}
@@ -80,10 +80,8 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           className="object-cover transition-transform duration-700 group-hover:scale-105"
           sizes="(max-width:768px)100vw,(max-width:1200px)50vw,33vw"
         />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/20 to-transparent" />
-
-        <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-slate-950/10 to-transparent" />
+        <div className="absolute left-4 top-4 inline-flex items-center rounded-full border border-orange-500 bg-orange-500 px-3 py-1 text-xs font-medium text-white backdrop-blur">
           {testimonial.label}
         </div>
       </div>
@@ -95,11 +93,8 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           {testimonial.quote}
         </p>
 
-        <div className="mt-6 border-t border-slate-200 pt-4">
-          <h4 className="font-semibold text-slate-900">
-            {testimonial.name}
-          </h4>
-
+        <div className="mt-6 border-t border-orange-200 pt-4">
+          <p className="text-sm font-semibold text-slate-950">{testimonial.name}</p>
           <p className="text-sm text-slate-600">
             {testimonial.title}, {testimonial.company}
           </p>
@@ -111,14 +106,13 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
 export function GuestTestimonialsSection() {
   return (
-    <section className="bg-[#f8fafc] py-16 sm:py-20">
+    <section className="bg-violet-100 py-16 text-slate-900 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.34em] text-slate-500">
             Testimonials
           </p>
-
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-balance text-orange-500 sm:text-4xl lg:text-5xl">
             What clients say about working with us.
           </h2>
 

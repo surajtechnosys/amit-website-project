@@ -64,7 +64,7 @@ function ServiceCard({
   return (
     <article
       className={[
-        "group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)] transition-transform duration-300 hover:-translate-y-1",
+        "group relative overflow-hidden rounded-[2rem] border border-orange-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)] transition-transform duration-300 hover:-translate-y-1",
         featured ? "lg:col-span-2" : "",
       ].join(" ")}
     >
@@ -72,11 +72,11 @@ function ServiceCard({
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,23,42,0.03),transparent_35%)]" />
 
       <div className="relative flex h-full flex-col">
-        <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-[0_10px_24px_rgba(15,23,42,0.12)]">
+        <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-blue-500 text-white shadow-[0_10px_24px_rgba(15,23,42,0.12)]">
           <Icon className="size-5" />
         </div>
 
-        <h3 className="text-xl font-semibold tracking-tight text-slate-950 sm:text-2xl">
+        <h3 className="text-xl font-semibold tracking-tight text-orange-500 sm:text-2xl">
           {title}
         </h3>
 
@@ -95,13 +95,13 @@ function ServiceCard({
 
 export function GuestServicesSection() {
   return (
-    <section id="services" className="bg-[#f8fafc] py-8 text-slate-900 sm:py-20">
+    <section id="services" className="bg-white py-8 text-slate-900 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <h2 className=" text-xl font-semibold tracking-tight text-balance text-slate-950 sm:text-4xl lg:text-5xl">
+          <h2 className=" text-xl font-semibold tracking-tight text-balance text-orange-500 sm:text-4xl lg:text-5xl">
             Services We Deliver
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+          <p className="mt-4 max-w-2xl text-base leading-7 text-blue-500 sm:text-lg">
             A focused service portfolio built to support operations, reporting,
             technical enablement, and recovery workflows.
           </p>

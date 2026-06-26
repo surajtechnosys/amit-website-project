@@ -61,7 +61,7 @@ export function GuestNavbar() {
   return (
     <header
       className={[
-        "fixed inset-x-0 top-0 z-50 border-b transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 border-b-blue-500 transition-all duration-300",
         scrolled
           ? "border-slate-200 bg-white text-slate-900 shadow-sm shadow-slate-900/5 backdrop-blur"
           : "border-transparent bg-transparent text-white",

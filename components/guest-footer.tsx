@@ -30,7 +30,7 @@ const socialLinks = [
 
 export function GuestFooter() {
   return (
-    <footer className="bg-[#062B36] text-slate-100">
+    <footer className="bg-black text-slate-100">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.8fr_0.8fr_1fr]">
           <div className="max-w-sm">
@@ -74,7 +74,7 @@ export function GuestFooter() {
           </div>
 
           <div>
-            <p className="text-xl font-semibold text-white">Services</p>
+            <p className="text-xl font-semibold text-orange-500">Services</p>
             <div className="mt-5 grid gap-4 text-sm text-slate-300">
               {serviceLinks.map((link) => (
                 <Link
@@ -90,7 +90,7 @@ export function GuestFooter() {
           </div>
 
           <div>
-            <p className="text-xl font-semibold text-white">About Us</p>
+            <p className="text-xl font-semibold text-orange-500">About Us</p>
             <div className="mt-5 grid gap-4 text-sm text-slate-300">
               {aboutLinks.map((link) => (
                 <Link
@@ -106,7 +106,7 @@ export function GuestFooter() {
           </div>
 
           <div>
-            <p className="text-xl font-semibold text-white">Newsletter</p>
+            <p className="text-xl font-semibold text-orange-500">Newsletter</p>
             <p className="mt-5 text-sm leading-7 text-slate-300">
               Get occasional updates on service improvements, analytics insights, and practical
               business tips.
@@ -119,11 +119,11 @@ export function GuestFooter() {
                 id="footer-newsletter-email"
                 type="email"
                 placeholder="Enter your email"
-                className="h-12 rounded-full border border-white/10 bg-white/5 px-4 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-cyan-300"
+                className="h-12 rounded-full border border-blue-500 bg-white/5 px-4 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-blue-500"
               />
               <button
                 type="submit"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-orange-500 px-5 text-sm font-semibold text-white transition hover:bg-cyan-300"
               >
                 Subscribe
                 <Send className="size-4" />
