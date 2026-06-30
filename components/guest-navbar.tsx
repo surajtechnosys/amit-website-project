@@ -3,16 +3,16 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "../images/AS-Services-Logo.jpg";
 import { GuestEnquiryPopup } from "@/components/guest-enquiry-popup";
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
 
 const services = [
@@ -43,9 +43,25 @@ const services = [
   },
 ];
 
+const navLinkBase =
+  "relative pb-1 text-sm font-semibold transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-orange-500 after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100 hover:text-orange-500";
+
+const navTriggerBase =
+  "relative pb-1 text-sm font-semibold transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-orange-500 after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100 hover:text-orange-500 hover:!bg-transparent focus:!bg-transparent data-open:!bg-transparent data-popup-open:!bg-transparent";
+
+const ctaPrimaryBase =
+  "inline-flex items-center rounded-full border border-orange-300/70 bg-gradient-to-r from-orange-500 to-orange-600 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(249,115,22,0.22)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:from-orange-500 hover:to-orange-500 hover:shadow-[0_16px_36px_rgba(249,115,22,0.28)]";
+
+const ctaSecondaryBase =
+  "inline-flex items-center gap-2 rounded-full border border-blue-300/70 bg-gradient-to-r from-blue-500 to-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(59,130,246,0.22)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:from-blue-500 hover:to-blue-500 hover:shadow-[0_16px_36px_rgba(59,130,246,0.28)]";
+
 export function GuestNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const isTransparentHeader = isHomePage && !scrolled;
 
   useEffect(() => {
     const onScroll = () => {
@@ -61,10 +77,10 @@ export function GuestNavbar() {
   return (
     <header
       className={[
-        "fixed inset-x-0 top-0 z-50 border-b-blue-500 transition-all duration-300",
-        scrolled
-          ? "border-slate-200 bg-white text-slate-900 shadow-sm shadow-slate-900/5 backdrop-blur"
-          : "border-transparent bg-transparent text-white",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        isTransparentHeader
+          ? "border-transparent bg-transparent text-white"
+          : "border-slate-200/80 bg-white/92 text-slate-900 shadow-sm shadow-slate-900/5 backdrop-blur-xl",
       ].join(" ")}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -83,111 +99,99 @@ export function GuestNavbar() {
           />
         </Link>
 
-        <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-6">
           <button
             type="button"
             className={[
               "inline-flex h-8 w-8 items-center justify-center rounded-xl border transition md:hidden",
-              scrolled
-                ? "border-slate-200 text-slate-700 hover:bg-slate-100"
-                : "border-white/20 text-white hover:bg-white/10",
+              isTransparentHeader
+                ? "border-white/20 text-white hover:bg-white/10"
+                : "border-slate-200 text-slate-700 hover:bg-slate-100",
             ].join(" ")}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             aria-controls="guest-navbar-menu"
-            onClick={() => setMobileOpen((open) => !open)}
+            onClick={() => {
+              setMobileOpen((open) => {
+                const next = !open;
+                if (!next) setMobileServicesOpen(false);
+                return next;
+              });
+            }}
           >
-            {mobileOpen ? (
-              <X className="size-5" />
-            ) : (
-              <Menu className="size-5" />
-            )}
+            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
 
           <div className="hidden items-center gap-4 md:flex">
             <NavigationMenu viewport={false}>
-              <NavigationMenuList className="gap-2">
+              <NavigationMenuList className="gap-5">
                 <NavigationMenuItem>
-                  <NavigationMenuLink
+                  <Link
                     href="/"
                     className={[
-                      "text-sm font-semibold transition-colors",
-                      scrolled
-                        ? "text-slate-700 hover:text-slate-950"
-                        : "text-white hover:text-black/80",
+                      navLinkBase,
+                      isTransparentHeader ? "text-white" : "text-slate-700",
                     ].join(" ")}
                   >
                     Home
-                  </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuLink
+                  <Link
                     href="/about"
                     className={[
-                      "text-sm font-semibold transition-colors",
-                      scrolled
-                        ? "text-slate-700 hover:text-slate-950"
-                        : "text-white hover:text-black/80",
+                      navLinkBase,
+                      isTransparentHeader ? "text-white" : "text-slate-700",
                     ].join(" ")}
                   >
                     About us
-                  </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuLink
+                  <Link
                     href="/career"
                     className={[
-                      "text-sm font-semibold transition-colors",
-                      scrolled
-                        ? "text-slate-700 hover:text-slate-950"
-                        : "text-white hover:text-black/80",
+                      navLinkBase,
+                      isTransparentHeader ? "text-white" : "text-slate-700",
                     ].join(" ")}
                   >
                     Careers
-                  </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
+                <NavigationMenuItem className="ml-1">
                   <NavigationMenuTrigger
                     className={[
-                      "text-sm font-semibold transition-colors",
-                      scrolled
-                        ? "text-slate-700 hover:text-slate-950"
-                        : "text-white hover:text-black/80",
+                      navTriggerBase,
+                      isTransparentHeader ? "text-white" : "text-slate-700",
                     ].join(" ")}
                   >
                     Services
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="rounded-[14px] border border-slate-200 bg-white text-slate-950 shadow-xl shadow-slate-950/10 md:min-w-[320px]">
-                    <div className="grid gap-2 p-4">
+                  <NavigationMenuContent className="overflow-hidden rounded-[14px] border border-slate-200 bg-white p-0 text-slate-950 shadow-xl shadow-slate-950/10 md:min-w-[260px] md:max-w-[280px]">
+                    <div className="grid gap-0">
                       {services.map((service) => (
                         <Link
                           key={service.title}
                           href={service.href}
-                          className="block rounded-xl p-3 transition hover:bg-slate-100"
+                          className="group block w-full px-4 py-3 text-black transition-colors duration-200 hover:bg-orange-500 hover:text-white"
                         >
-                          <p className="text-sm font-semibold">
+                          <p className="text-sm font-semibold text-current transition-colors">
                             {service.title}
-                          </p>
-                          <p className="mt-1 text-sm text-slate-600">
-                            {service.description}
                           </p>
                         </Link>
                       ))}
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-                
-                <NavigationMenuItem>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center rounded-full bg-violet-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-violet-500/20 transition hover:bg-violet-400"
-                  >
+
+                <NavigationMenuItem className="ml-2">
+                  <Link href="/contact" className={ctaPrimaryBase}>
                     Get in Touch
                   </Link>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
+                <NavigationMenuItem className="ml-2">
                   <GuestEnquiryPopup
-                    triggerClassName="inline-flex items-center gap-2 rounded-full bg-cyan-300 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-sm shadow-cyan-500/20 transition hover:bg-white"
+                    triggerClassName={ctaSecondaryBase}
                     triggerLabel="Enquiry Us"
                   />
                 </NavigationMenuItem>
@@ -200,57 +204,104 @@ export function GuestNavbar() {
       {mobileOpen ? (
         <div
           id="guest-navbar-menu"
-          className="border-t border-slate-200 bg-white md:hidden"
+          className={[
+            "border-t md:hidden",
+            isTransparentHeader
+              ? "border-white/15 bg-slate-950/90 text-white backdrop-blur-xl"
+              : "border-slate-200 bg-white text-slate-900",
+          ].join(" ")}
         >
           <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-            <div className="grid gap-2">
+            <div className="grid gap-3">
               <Link
                 href="/"
-                className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
-                onClick={() => setMobileOpen(false)}
+                className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setMobileServicesOpen(false);
+                }}
               >
                 Home
               </Link>
               <Link
                 href="/about"
-                className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
-                onClick={() => setMobileOpen(false)}
+                className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setMobileServicesOpen(false);
+                }}
               >
                 About us
               </Link>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-2">
-                <p className="px-3 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Services
-                </p>
-                <div className="grid gap-1">
-                  {services.map((service) => (
-                    <Link
-                      key={service.title}
-                      href={service.href}
-                      className="rounded-xl px-3 py-2 text-base text-slate-700 transition hover:bg-white hover:text-slate-950"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {service.title}
-                    </Link>
-                  ))}
+              <div className="overflow-hidden rounded-2xl">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between rounded-2xl px-1 py-2 text-left transition hover:bg-slate-50"
+                  aria-expanded={mobileServicesOpen}
+                  aria-controls="mobile-services-panel"
+                  onClick={() => setMobileServicesOpen((open) => !open)}
+                >
+                  <span className="text-sm font-medium text-slate-700">
+                    Services
+                  </span>
+                  <ChevronDown
+                    className={[
+                      "size-4 shrink-0 text-slate-400 transition-transform duration-200",
+                      mobileServicesOpen ? "rotate-180" : "rotate-0",
+                    ].join(" ")}
+                  />
+                </button>
+
+                <div
+                  id="mobile-services-panel"
+                  className={[
+                    "grid overflow-hidden transition-all duration-300 ease-out",
+                    mobileServicesOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                  ].join(" ")}
+                >
+                  <div className="min-h-0">
+                    <div className="grid gap-1 pb-1 pl-3 pr-1">
+                      {services.map((service) => (
+                        <Link
+                          key={service.title}
+                          href={service.href}
+                          className="group rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
+                          onClick={() => {
+                            setMobileOpen(false);
+                            setMobileServicesOpen(false);
+                          }}
+                        >
+                          <span className="block text-[15px] leading-6">
+                            {service.title}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
               <Link
                 href="/career"
-                className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
-                onClick={() => setMobileOpen(false)}
+                className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setMobileServicesOpen(false);
+                }}
               >
                 Careers
               </Link>
               <Link
                 href="/contact"
-                className="rounded-xl px-3 py-2 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
-                onClick={() => setMobileOpen(false)}
+                className={ctaPrimaryBase + " justify-center"}
+                onClick={() => {
+                  setMobileOpen(false);
+                  setMobileServicesOpen(false);
+                }}
               >
                 Contact us
               </Link>
               <GuestEnquiryPopup
-                triggerClassName="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-3 py-3 text-base font-semibold text-white transition hover:bg-cyan-700"
+                triggerClassName={ctaSecondaryBase + " w-full justify-center"}
                 triggerLabel="Enquiry Us"
               />
             </div>

@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button"
 
 import { getServiceBySlug, serviceContent } from "../service-data"
 
+const ctaPrimaryBase =
+  "inline-flex items-center gap-2 rounded-full border border-orange-300/70 bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(249,115,22,0.22)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:from-orange-500 hover:to-orange-500 hover:shadow-[0_16px_36px_rgba(249,115,22,0.28)]";
+
+const ctaSecondaryBase =
+  "inline-flex items-center gap-2 rounded-full border border-blue-300/70 bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(59,130,246,0.22)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:from-blue-500 hover:to-blue-500 hover:shadow-[0_16px_36px_rgba(59,130,246,0.28)]";
+
 type ServicePageProps = {
   params: Promise<{ slug: string }>
 }
@@ -89,7 +95,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 <Button
                   asChild
                   size="lg"
-                  className="rounded-full px-6"
+                  className={ctaPrimaryBase}
                 >
                   <Link href="/contact" className="inline-flex items-center gap-2">
                     Start a project
@@ -100,7 +106,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="rounded-full border-slate-300 bg-white/80 px-6 text-slate-800 hover:bg-white hover:text-slate-950"
+                  className={ctaSecondaryBase}
                 >
                   <Link href="/services" className="inline-flex items-center gap-2">
                     Back to services

@@ -153,10 +153,10 @@ export default function ServicePage() {
 
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-cyan-100 backdrop-blur">
+            {/* <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-cyan-100 backdrop-blur">
               <Sparkles className="size-4" />
               Integrated services for growing operations
-            </div>
+            </div> */}
 
             <h1 className="mt-7 text-4xl font-semibold text-balance sm:text-5xl lg:text-6xl">
               Services built for scale, support, and smarter delivery.

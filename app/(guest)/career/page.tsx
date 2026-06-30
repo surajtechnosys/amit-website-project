@@ -85,10 +85,10 @@ export default function CareerPage() {
       
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-500 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-500  hover:bg-blue-500 hover:text-white">
+            {/* <div className="inline-flex items-center gap-2 rounded-full border border-blue-500 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-500  hover:bg-blue-500 hover:text-white">
               <Sparkles className="size-4" />
               Build your next move with AS Services
-            </div>
+            </div> */}
 
             <h1 className="mt-7 text-4xl font-semibold tracking-tight text-balance text-orange-500 sm:text-5xl lg:text-6xl">
               Advance your career in operations, analytics, and IT services.

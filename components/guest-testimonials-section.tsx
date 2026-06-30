@@ -51,7 +51,7 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "Their project management approach ensured every milestone was delivered on time. Communication remained transparent throughout the engagement.",
+      "Their project management approach ensured every milestone was delivered on time. Communication remained transparent throughout the engagement with stakeholders.",
     name: "Sophia Wilson",
     title: "Project Manager",
     company: "BrightEdge Technologies",
@@ -60,7 +60,7 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "The team quickly understood our business requirements and delivered scalable solutions that significantly improved our operational efficiency.",
+      "The team quickly understood our business requirements and delivered scalable solutions that significantly improved our operational efficiency with minimal disruption.",
     name: "James Anderson",
     title: "CTO",
     company: "InnovateX Solutions",

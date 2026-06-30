@@ -6,6 +6,7 @@ import {
   Phone,
   Send,
 } from "lucide-react"
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6"
 
 import logo from "../images/AS-Services-Logo.jpg"
 
@@ -22,10 +23,10 @@ const aboutLinks = [
 ]
 
 const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com", badge: "in" },
-  { label: "Instagram", href: "https://www.instagram.com", badge: "ig" },
-  { label: "Facebook", href: "https://www.facebook.com", badge: "fb" },
-  { label: "X", href: "https://x.com", badge: "x" },
+  { label: "LinkedIn", href: "https://www.linkedin.com", icon: FaLinkedinIn },
+  { label: "Instagram", href: "https://www.instagram.com", icon: FaInstagram },
+  { label: "Facebook", href: "https://www.facebook.com", icon: FaFacebookF },
+  { label: "X", href: "https://x.com", icon: FaXTwitter },
 ]
 
 export function GuestFooter() {
@@ -57,6 +58,8 @@ export function GuestFooter() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               {socialLinks.map((social) => {
+                const Icon = social.icon
+
                 return (
                   <a
                     key={social.label}
@@ -64,9 +67,9 @@ export function GuestFooter() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={social.label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:border-cyan-300 hover:bg-cyan-300 hover:text-slate-950"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-orange-400 hover:bg-orange-500 hover:text-white"
                   >
-                    {social.badge}
+                    <Icon className="size-4" />
                   </a>
                 )
               })}
@@ -157,6 +160,8 @@ export function GuestFooter() {
           <p className="text-sm text-slate-400">© {new Date().getFullYear()} AS Services. All rights reserved.</p>
           <div className="flex flex-wrap gap-4 text-sm">
             {socialLinks.map((social) => {
+              const Icon = social.icon
+
               return (
                 <a
                   key={social.label}
@@ -165,9 +170,7 @@ export function GuestFooter() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 text-slate-400 transition hover:text-white"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-[0.12em]">
-                    {social.badge}
-                  </span>
+                  <Icon className="size-4" />
                   <span>{social.label}</span>
                 </a>
               )
