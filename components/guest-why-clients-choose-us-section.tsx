@@ -38,7 +38,7 @@ function ReasonCard({
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.06),transparent_35%)]" />
 
       <div className="relative">
-        <div className="flex size-12 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-[0_12px_24px_rgba(15,23,42,0.12)]">
+        <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-500 text-white shadow-[0_12px_24px_rgba(15,23,42,0.12)]">
           <Icon className="size-5" />
         </div>
 

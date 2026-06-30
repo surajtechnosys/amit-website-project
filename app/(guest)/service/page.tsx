@@ -244,7 +244,7 @@ export default function ServicePage() {
                 <article
                   id={service.id}
                   key={service.title}
-                  className="service-card group relative overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)]"
+                  className="service-card group relative overflow-hidden rounded-lg border border-orange-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)]"
                   style={{ animationDelay: `${index * 90}ms` }}
                 >
                   <div className="absolute inset-x-0 top-0 h-1 service-shine" />

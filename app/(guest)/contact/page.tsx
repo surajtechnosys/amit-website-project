@@ -54,7 +54,7 @@ function ContactCard({
   return (
     <Link
       href={href}
-      className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white/90 p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_24px_60px_rgba(15,23,42,0.1)]"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-orange-200 bg-white/90 p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_24px_60px_rgba(15,23,42,0.1)]"
     >
       <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accent}`} />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,23,42,0.03),transparent_35%)]" />
@@ -87,7 +87,7 @@ function ContactCard({
 
 export default function ContactPage() {
   return (
-    <div className="relative overflow-hidden bg-[#eef3f8] text-slate-900">
+    <div className="relative overflow-hidden bg-[#eef3f8] text-slate-900 pb-4">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.12),transparent_28%),radial-gradient(circle_at_80%_0,rgba(249,115,22,0.09),transparent_26%),linear-gradient(180deg,rgba(248,250,252,0.95)_0%,rgba(236,242,248,1)_100%)]" />
 
       <section className="relative isolate overflow-hidden pt-28 sm:pt-32">
@@ -110,14 +110,7 @@ export default function ContactPage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="#contact-form"
-                className="inline-flex items-center rounded-full bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(249,115,22,0.22)] transition hover:translate-y-[-1px] hover:from-orange-500 hover:to-orange-500"
-              >
-                Send a message
-                <ArrowRight className="ml-2 size-4" />
-              </Link>
-              <Link
-                href="/services"
+                href="/service"
                 className="inline-flex items-center rounded-full border border-slate-300 bg-white/80 px-6 py-3 text-sm font-semibold text-slate-800 shadow-[0_12px_30px_rgba(15,23,42,0.05)] transition hover:bg-white hover:text-slate-950"
               >
                 View services
@@ -144,25 +137,8 @@ export default function ContactPage() {
                   <Clock3 className="size-4 text-cyan-700" />
                   Quick enquiry
                 </div>
-                <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
-                  Tell us what you&apos;re looking for.
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-slate-600">
-                  Use the form below to share your needs. We&apos;ll respond with a
-                  practical follow-up and recommended next step.
-                </p>
+        
 
-                <div className="mt-6 grid gap-3">
-                  {quickPoints.map((point) => (
-                    <div
-                      key={point}
-                      className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-[0_10px_24px_rgba(15,23,42,0.04)]"
-                    >
-                      <span className="mt-1 size-2.5 rounded-full bg-orange-500" />
-                      <p className="text-sm leading-6 text-slate-700">{point}</p>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               <div className="mt-6">
