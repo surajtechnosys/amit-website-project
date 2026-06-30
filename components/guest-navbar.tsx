@@ -152,7 +152,7 @@ export function GuestNavbar() {
                 <NavigationMenuItem className="ml-1">
                   <div className="group/services relative">
                     <Link
-                      href="/services"
+                      href="/service"
                       className={[
                         navLinkBase,
                         "flex items-center gap-2",
