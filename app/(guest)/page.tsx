@@ -4,13 +4,17 @@ import { GuestOperationalExcellenceSection } from "@/components/guest-operationa
 import { GuestServicesSection } from "@/components/guest-services-section"
 import { GuestTestimonialsSection } from "@/components/guest-testimonials-section"
 import { GuestWhyClientsChooseUsSection } from "@/components/guest-why-clients-choose-us-section"
+import { getServices } from "@/lib/actions/service-action"
+import { Service } from "@/lib/types"
 
-export default function GuestPage() {
+export default async function GuestPage() {
+  const services = await getServices();
+
   return (
     <>
       <GuestHeroSection />
       <GuestOperationalExcellenceSection />
-      <GuestServicesSection />
+      <GuestServicesSection services={services as Service[]} />
       <GuestWhyClientsChooseUsSection />
       <GuestGlobalDeliveryModelSection />
       <GuestTestimonialsSection />

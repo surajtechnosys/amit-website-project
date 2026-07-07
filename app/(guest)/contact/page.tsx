@@ -117,7 +117,7 @@ export default function ContactPage() {
                 <ArrowRight className="ml-2 size-4" />
               </Link>
               <Link
-                href="/services"
+                href="/service"
                 className="inline-flex items-center rounded-full border border-slate-300 bg-white/80 px-6 py-3 text-sm font-semibold text-slate-800 shadow-[0_12px_30px_rgba(15,23,42,0.05)] transition hover:bg-white hover:text-slate-950"
               >
                 View services

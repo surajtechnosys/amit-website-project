@@ -329,3 +329,127 @@ html {
     animation: none;
   }
 }
+
+.service-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 42px 42px;
+  animation: serviceGridMove 18s linear infinite;
+}
+
+.service-console {
+  animation: servicePanelIn 700ms ease-out both;
+}
+
+.service-meter {
+  animation: serviceSlideIn 650ms ease-out both;
+}
+
+.service-meter-fill {
+  width: 86%;
+  animation: serviceFill 1.4s ease-out both;
+}
+
+.service-card,
+.service-step {
+  animation: serviceFadeUp 680ms ease-out both;
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.service-card:hover,
+.service-step:hover {
+  transform: translateY(-6px);
+  border-color: rgba(14, 116, 144, 0.35);
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.12);
+}
+
+.service-shine {
+  background: linear-gradient(90deg, #06b6d4, #8b5cf6, #10b981, #06b6d4);
+  background-size: 220% 100%;
+  animation: serviceShine 3.8s linear infinite;
+}
+
+@keyframes serviceGridMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 42px 42px;
+  }
+}
+
+@keyframes servicePanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes serviceSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes serviceFill {
+  from {
+    width: 18%;
+  }
+
+  to {
+    width: 86%;
+  }
+}
+
+@keyframes serviceFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes serviceShine {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 220% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .service-grid,
+  .service-console,
+  .service-meter,
+  .service-meter-fill,
+  .service-card,
+  .service-step,
+  .service-shine {
+    animation: none;
+  }
+
+  .service-card:hover,
+  .service-step:hover {
+    transform: none;
+  }
+}

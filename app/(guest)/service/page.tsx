@@ -2,18 +2,11 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import {
   ArrowRight,
-  BarChart3,
-  Boxes,
   CheckCircle2,
-  CloudCog,
   Gauge,
-  Headphones,
   LineChart,
-  RefreshCcw,
   Settings2,
   ShieldCheck,
-  Sparkles,
-  Wrench,
 } from "lucide-react"
 import herobanner2 from "@/images/herobanner2.jpg"
 
@@ -27,93 +20,6 @@ export const metadata: Metadata = {
   description:
     "Explore AS Services capabilities across back office operations, analytics, technical support, IT consulting, managed services, and recovery support.",
 }
-
-const services = [
-  {
-    id: "back-office",
-    icon: Boxes,
-    title: "Back Office Operations",
-    summary:
-      "Reliable operational support for documentation, process execution, client coordination, and workflow management.",
-    features: [
-      "Administrative processing",
-      "Workflow tracking",
-      "Documentation management",
-      "Quality checks",
-    ],
-    color: "cyan",
-  },
-  {
-    id: "analytics",
-    icon: BarChart3,
-    title: "Data Analytics & Dashboards",
-    summary:
-      "Clear reporting systems that convert operational data into measurable business insight.",
-    features: [
-      "Performance dashboards",
-      "Data cleanup",
-      "Trend reporting",
-      "Management insights",
-    ],
-    color: "violet",
-  },
-  {
-    id: "technical-support",
-    icon: Headphones,
-    title: "Technical Support Services",
-    summary:
-      "Responsive support teams for issue handling, troubleshooting, user assistance, and service continuity.",
-    features: [
-      "Help desk support",
-      "Incident response",
-      "User communication",
-      "Escalation management",
-    ],
-    color: "emerald",
-  },
-  {
-    id: "consulting",
-    icon: Wrench,
-    title: "IT Consulting Services",
-    summary:
-      "Practical technology guidance for implementation planning, automation, systems, and operations.",
-    features: [
-      "Technology advisory",
-      "Implementation planning",
-      "Automation support",
-      "Process improvement",
-    ],
-    color: "amber",
-  },
-  {
-    id: "managed-services",
-    icon: CloudCog,
-    title: "IT Managed Services",
-    summary:
-      "Ongoing technical operations support to keep teams productive, systems stable, and work moving.",
-    features: [
-      "System monitoring",
-      "Cloud operations",
-      "Maintenance support",
-      "Service governance",
-    ],
-    color: "sky",
-  },
-  {
-    id: "recovery-support",
-    icon: RefreshCcw,
-    title: "Recovery Support Services",
-    summary:
-      "Specialized operational support for recovery workflows, case handling, coordination, and reporting.",
-    features: [
-      "Case coordination",
-      "Portfolio tracking",
-      "Recovery reporting",
-      "Process controls",
-    ],
-    color: "rose",
-  },
-]
 
 const deliveryPoints = [
   {
@@ -138,19 +44,10 @@ const deliveryPoints = [
   },
 ]
 
-const colorClasses = {
-  amber: "bg-amber-50 text-amber-700 border-amber-200",
-  cyan: "bg-cyan-50 text-cyan-700 border-cyan-200",
-  emerald: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  rose: "bg-rose-50 text-rose-700 border-rose-200",
-  sky: "bg-sky-50 text-sky-700 border-sky-200",
-  violet: "bg-violet-50 text-violet-700 border-violet-200",
-}
 
 export default async function ServicePage() {
   const services = await getServices();
   
-
   return (
     <div className="bg-white text-slate-900">
       <section className="relative isolate overflow-hidden bg-[#062B36] pt-32 text-white sm:pt-36">
@@ -170,12 +67,8 @@ export default async function ServicePage() {
       
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div className="max-w-3xl">
-            {/* <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-cyan-100 backdrop-blur">
-              <Sparkles className="size-4" />
-              Integrated services for growing operations
-            </div> */}
-
-            <h1 className="mt-7 text-4xl font-semibold text-balance sm:text-5xl lg:text-6xl">
+          
+            <h1 className="mt-7 text-4xl font-semibold text-orange-500 text-balance sm:text-5xl lg:text-6xl">
               Services built for scale, support, and smarter delivery.
             </h1>
 
@@ -186,18 +79,18 @@ export default async function ServicePage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="h-12 rounded-full bg-cyan-300 px-6 text-slate-950 hover:bg-white">
+              <Button asChild size="lg" className="h-12 rounded-full bg-orange-500  px-6 text-white hover:bg-orange-600">
                 <Link href="/contact" className="inline-flex items-center gap-2">
                   Discuss a Project
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
-              <a
+              <Link
                 href="#services-list"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-blue-500 px-6 text-sm font-semibold text-blue-500 transition hover:bg-blue-500 hover:text-white"
               >
                 Explore Services
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -241,10 +134,10 @@ export default async function ServicePage() {
       <section id="services-list" className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase text-cyan-700">
+            <p className="text-sm font-semibold uppercase text-blue-500">
               Complete Service List
             </p>
-            <h2 className="mt-3 text-3xl font-semibold text-slate-950 sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-semibold text-orange-500 sm:text-4xl">
               Choose the support your team needs next.
             </h2>
             <p className="mt-4 text-base leading-7 text-slate-600">
@@ -260,12 +153,12 @@ export default async function ServicePage() {
                 <article
                   id={service.id}
                   key={service.title}
-                  className="service-card group relative overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)]"
+                  className="service-card group relative overflow-hidden rounded-lg border border-orange-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)]"
                   style={{ animationDelay: `${index * 90}ms` }}
                 >
                   <div className="absolute inset-x-0 top-0 h-1 service-shine" />
 
-                  <h3 className="mt-5 text-xl font-semibold text-slate-950">
+                  <h3 className="mt-5 text-xl font-semibold text-orange-500">
                     {service.title}
                   </h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">
@@ -283,7 +176,7 @@ export default async function ServicePage() {
 
                   <Link
                     href={`/service/${service.id}`}
-                    className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 transition group-hover:text-cyan-700"
+                    className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-500 transition group-hover:text-cyan-700"
                   >
                     View service details
                     <ArrowRight className="size-4 transition group-hover:translate-x-1" />
@@ -298,10 +191,10 @@ export default async function ServicePage() {
       <section className="bg-slate-50 py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
           <div>
-            <p className="text-sm font-semibold uppercase text-cyan-700">
+            <p className="text-sm font-semibold uppercase text-blue-500">
               Delivery Method
             </p>
-            <h2 className="mt-3 text-3xl font-semibold text-slate-950 sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-semibold text-orange-500 sm:text-4xl">
               Advanced support, grounded in operational discipline.
             </h2>
             <p className="mt-4 text-base leading-7 text-slate-600">
@@ -317,7 +210,7 @@ export default async function ServicePage() {
               return (
                 <div
                   key={point.title}
-                  className="service-step rounded-lg border border-slate-200 bg-white p-5 shadow-[0_12px_34px_rgba(15,23,42,0.05)]"
+                  className="service-step rounded-lg border border-orange-200 bg-white p-5 shadow-[0_12px_34px_rgba(15,23,42,0.05)]"
                   style={{ animationDelay: `${index * 110}ms` }}
                 >
                   <Icon className="size-7 text-cyan-700" />
@@ -358,125 +251,6 @@ export default async function ServicePage() {
           </div>
         </div>
       </section>
-
-      <style>{`
-        .service-grid {
-          background-image:
-            linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-          background-size: 42px 42px;
-          animation: serviceGridMove 18s linear infinite;
-        }
-
-        .service-console {
-          animation: servicePanelIn 700ms ease-out both;
-        }
-
-        .service-meter {
-          animation: serviceSlideIn 650ms ease-out both;
-        }
-
-        .service-meter-fill {
-          width: 86%;
-          animation: serviceFill 1.4s ease-out both;
-        }
-
-        .service-card,
-        .service-step {
-          animation: serviceFadeUp 680ms ease-out both;
-          transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
-        }
-
-        .service-card:hover,
-        .service-step:hover {
-          transform: translateY(-6px);
-          border-color: rgba(14, 116, 144, 0.35);
-          box-shadow: 0 20px 55px rgba(15, 23, 42, 0.12);
-        }
-
-        .service-shine {
-          background: linear-gradient(90deg, #06b6d4, #8b5cf6, #10b981, #06b6d4);
-          background-size: 220% 100%;
-          animation: serviceShine 3.8s linear infinite;
-        }
-
-        @keyframes serviceGridMove {
-          from {
-            background-position: 0 0;
-          }
-          to {
-            background-position: 42px 42px;
-          }
-        }
-
-        @keyframes servicePanelIn {
-          from {
-            opacity: 0;
-            transform: translateY(18px) scale(0.98);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        @keyframes serviceSlideIn {
-          from {
-            opacity: 0;
-            transform: translateX(22px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes serviceFill {
-          from {
-            width: 18%;
-          }
-          to {
-            width: 86%;
-          }
-        }
-
-        @keyframes serviceFadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes serviceShine {
-          from {
-            background-position: 0% 50%;
-          }
-          to {
-            background-position: 220% 50%;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .service-grid,
-          .service-console,
-          .service-meter,
-          .service-meter-fill,
-          .service-card,
-          .service-step,
-          .service-shine {
-            animation: none;
-          }
-
-          .service-card:hover,
-          .service-step:hover {
-            transform: none;
-          }
-        }
-      `}</style>
     </div>
   )
 }

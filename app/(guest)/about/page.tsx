@@ -10,65 +10,7 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-
-const services = [
-  {
-    href: "/services/back-office-operations",
-    icon: Boxes,
-    title: "Back Office Operations",
-    description:
-      "Reliable process support, documentation handling, and day-to-day execution.",
-    accent: "from-cyan-400 to-sky-500",
-    points: [
-      "Administrative processing",
-      "Workflow tracking",
-      "Documentation management",
-      "Quality checks",
-    ],
-  },
-  {
-    href: "/services/reporting-analytics",
-    icon: BarChart3,
-    title: "Reporting & Analytics",
-    description:
-      "Clear dashboards and reporting that help teams make faster decisions.",
-    accent: "from-violet-400 to-fuchsia-500",
-    points: [
-      "Performance dashboards",
-      "Data cleanup",
-      "Trend reporting",
-      "Management insights",
-    ],
-  },
-  {
-    href: "/services/technical-support",
-    icon: Headset,
-    title: "Technical Support",
-    description:
-      "Practical support for systems, users, and operational follow-through.",
-    accent: "from-emerald-400 to-teal-500",
-    points: [
-      "Help desk support",
-      "Incident response",
-      "User communication",
-      "Escalation management",
-    ],
-  },
-  {
-    href: "/services/recovery-support-services",
-    icon: RefreshCcw,
-    title: "Recovery Support Services",
-    description:
-      "Specialized support designed for recovery workflows and service continuity.",
-    accent: "from-amber-400 to-orange-500",
-    points: [
-      "Recovery coordination",
-      "Business continuity",
-      "Risk review",
-      "Compliance support",
-    ],
-  },
-]
+import { getServices } from "@/lib/actions/service-action"
 
 const strengths = [
   "Structured delivery",
@@ -84,37 +26,23 @@ export const metadata = {
 }
 
 function ServiceCard({
-  href,
-  icon: Icon,
-  title,
-  description,
-  accent,
-  points = [],
+  service
 }: {
-  href: string
-  icon: typeof Boxes
-  title: string
-  description: string
-  accent: string
-  points?: string[]
+  service: any
 }) {
   return (
-    <Link href={href} className="group block h-full">
+    <Link href={"/service/" + service.id} className="group block h-full">
       <article className="relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-orange-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600/40">
-        <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accent}`} />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,23,42,0.025),transparent_35%)]" />
 
         <div className="relative flex h-full flex-col">
-          <div className="flex size-12 items-center justify-center rounded-2xl border border-sky-200 bg-sky-50 text-cyan-700 shadow-[0_8px_20px_rgba(14,165,233,0.08)]">
-            <Icon className="size-5" />
-          </div>
           <h3 className="mt-5 text-[1.05rem] font-semibold tracking-tight text-slate-950 sm:text-[1.15rem]">
-            {title}
+            {service.title}
           </h3>
-          <p className="mt-3 text-sm leading-6 text-slate-600">{description}</p>
+          <p className="mt-3 text-sm leading-6 text-slate-600">{service.description}</p>
 
           <div className="mt-5 space-y-3">
-            {points.map((point) => (
+            {service.serviceBenefits?.items.map((point: string) => (
               <div key={point} className="flex items-center gap-2 text-sm text-slate-600">
                 <CheckCircle2 className="size-4 shrink-0 text-emerald-500" />
                 <span>{point}</span>
@@ -132,7 +60,11 @@ function ServiceCard({
   )
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+
+  const services = await getServices();
+  console.log("services", services);
+
   return (
     <div className="relative overflow-hidden bg-[#eef3f8] text-slate-900">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(15,23,42,0.05),transparent_34%),radial-gradient(circle_at_80%_0,rgba(8,145,178,0.08),transparent_26%),linear-gradient(180deg,rgba(248,250,252,0.92)_0%,rgba(236,242,248,1)_100%)]" />
@@ -271,16 +203,11 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {services.map((service) => (
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {services.map((service, index) => (
               <ServiceCard
-                key={service.title}
-                href={service.href}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                points={service.points}
-                accent={service.accent}
+                key={index}
+                service={service}
               />
             ))}
           </div>

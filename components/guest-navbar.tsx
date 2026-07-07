@@ -137,7 +137,7 @@ export function GuestNavbar() {
                 <NavigationMenuItem>
                   <div className="group/services">
                     <Link
-                      href="/services"
+                      href="/service"
                       className={[
                         navLinkBase,
                         "flex items-center gap-2 mt-1",
@@ -160,7 +160,7 @@ export function GuestNavbar() {
                         </div>
                         <Link
                           href="/service"
-                          className="rounded-full bg-slate-950 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-slate-800"
+                          className="rounded-full bg-orange-500 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-orange-600"
                         >
                           View all
                         </Link>
@@ -233,7 +233,7 @@ export function GuestNavbar() {
               About us
               </Link>
               <Link
-                href="/services"
+                href="/service"
                 className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
                 onClick={() => {
                   setMobileOpen(false);
