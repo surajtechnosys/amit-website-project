@@ -26,7 +26,7 @@ import {
 import { Button } from "../ui/button";
 import { ArrowRight, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Status } from "@/lib/generated/prisma/enums";
+import { Status } from "@/lib/types";
 import { bannerDefaultValues,  } from "@/lib/constants";
 import { createBanner, updateBanner } from "@/lib/actions/banner-action";
 import { Textarea } from "../ui/textarea";

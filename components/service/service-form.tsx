@@ -6,7 +6,7 @@ import { Control, Path, SubmitHandler, UseFormReturn, useForm } from "react-hook
 import { zodResolver } from "@hookform/resolvers/zod";
 import { serviceSchema } from "@/lib/validators";
 import { serviceDefaultValues } from "@/lib/constants";
-import { Status } from "@/lib/generated/prisma/enums";
+import { Status } from "@/lib/types";
 import { Button } from "../ui/button";
 import { ArrowRight, Loader, Plus, Trash } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";

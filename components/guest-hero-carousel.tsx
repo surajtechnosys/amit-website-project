@@ -233,6 +233,7 @@ export function GuestHeroSection() {
                         src={slide.src}
                         alt={slide.alt}
                         fill
+                        sizes="100vw"
                         priority={index === 0}
                         className="object-cover"
                       />

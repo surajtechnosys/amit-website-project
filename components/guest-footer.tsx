@@ -13,7 +13,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/
 import logo from "../images/AS-Services-Logo.jpg"
 import { useState } from "react"
 import { createNewsletter } from "@/lib/actions/newsletter-action"
-import { Status } from "@/lib/generated/prisma/edge"
+import { Status } from "@/lib/types"
 import { toast } from "sonner"
 
 const serviceLinks = [

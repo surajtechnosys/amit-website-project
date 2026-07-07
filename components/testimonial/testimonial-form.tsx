@@ -26,7 +26,7 @@ import {
 import { Button } from "../ui/button";
 import { ArrowRight, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Status } from "@/lib/generated/prisma/enums";
+import { Status } from "@/lib/types";
 import { testimonialDefaultValues } from "@/lib/constants";
 import { Textarea } from "../ui/textarea";
 import { createTestimonial, updateTestimonial } from "@/lib/actions/testimonial-action";

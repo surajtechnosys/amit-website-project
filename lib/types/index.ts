@@ -18,5 +18,11 @@ export type Newsletter = z.infer<typeof newsletterSchema>
 export type Testimonial = z.infer<typeof testimonialSchema>
 
 
+export enum Status {
+    ACTIVE = "ACTIVE",
+    INACTIVE = "INACTIVE",
+}
+
+
 
 

@@ -123,7 +123,7 @@ export function GuestTestimonialsSection({ testimonials }: { testimonials: Testi
         <div className="mt-12">
           <Swiper
             modules={[Autoplay, Pagination]}
-            loop={true}
+            loop={testimonials.length > 3}
             spaceBetween={24}
             speed={1200}
             pagination={{
