@@ -17,17 +17,23 @@ const settingsId = "site-settings"
 
 type SiteSettingsInput = Parameters<typeof prisma.siteSettings.upsert>[0]["create"]
 
-async function upsertSiteSettings(data: Omit<SiteSettingsInput, "id">): Promise<ActionResponse> {
+async function upsertSiteSettings(data: Partial<Omit<SiteSettingsInput, "id">>): Promise<ActionResponse> {
   try {
-    await prisma.siteSettings.upsert({
-      where: { id: settingsId },
-      create: { id: settingsId, ...data },
-      update: data,
-    })
+    // Prefer updating existing settings so callers can pass partial payloads.
+    await prisma.siteSettings.update({ where: { id: settingsId }, data })
 
     return { success: true, message: "Settings saved successfully" }
-  } catch (error) {
-    return { success: false, message: formatError(error) }
+  } catch (error: any) {
+    try {
+      // If update failed (likely because the record doesn't exist), create it.
+      await prisma.siteSettings.create({
+        data: { id: settingsId, siteName: data.siteName ?? "", ...data },
+      })
+
+      return { success: true, message: "Settings saved successfully" }
+    } catch (createError) {
+      return { success: false, message: formatError(createError) }
+    }
   }
 }
 

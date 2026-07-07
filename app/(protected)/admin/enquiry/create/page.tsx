@@ -19,7 +19,7 @@ const EnquiryCreatePage = async () => {
       </CardHeader>
 
       <CardContent>
-        <EnquiryForm update={false} />
+        <EnquiryForm />
       </CardContent>
     </Card>
   );
