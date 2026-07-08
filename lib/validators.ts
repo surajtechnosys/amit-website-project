@@ -1,5 +1,6 @@
 import z from "zod";
 import { Status } from "./generated/prisma/enums";
+import { ApplicationStatus, EmploymentType, WorkMode } from "@prisma/client";
 
 export const userSchema = z.object({
   id: z.string().optional(),
@@ -144,3 +145,35 @@ export const testimonialSchema = z.object({
   createdAt: z.date().nullable().optional(),
   updatedAt: z.date().nullable().optional(),
 });
+
+export const jobSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().trim().min(3, "Title must be at least 3 characters."),
+  shortDescription: z.string().trim().min(10, "Short description must be at least 10 characters."),
+  description: z.string().trim().optional(),
+  employmentType: z.enum(Object.values(EmploymentType)),
+  workMode: z.enum(Object.values(WorkMode)),
+  experience: z.string().trim().optional(),
+  location: z.string().trim().optional(),
+  vacancies: z.coerce.number().int("Vacancies must be a whole number.").min(1, "Vacancies must be at least 1.").optional(),
+  status: z.enum(Object.values(Status)).default(Status.ACTIVE),
+  createdAt: z.date().nullable().optional(),
+  updatedAt: z.date().nullable().optional(),
+});
+
+export const applicationSchema = z.object({
+  id: z.string().optional(),
+  fullName: z.string().min(1, "Full name is required"),
+  email: z.string().min(1, "Email is required"),
+  phone: z.string().min(1, "Phone is required"),
+  role: z.string().min(1, "Role is required"),
+  experience: z.string().min(1, "Experience is required"),
+  location: z.string().min(1, "Location is required"),
+  jobId: z.string().min(1, "Please select a job"),
+  resume: z.union([z.instanceof(File), z.string().nullable()]),
+  message: z.string().optional(),
+  status: z.enum(Object.values(ApplicationStatus)).default(ApplicationStatus.PENDING),
+  createdAt: z.date().nullable().optional(),
+  updatedAt: z.date().nullable().optional(),
+});
+

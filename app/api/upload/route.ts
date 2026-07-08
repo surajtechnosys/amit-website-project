@@ -6,24 +6,27 @@ import crypto from "crypto";
 export async function POST(req: Request) {
   const formData = await req.formData();
 
-  for (const [key, value] of formData.entries()) {
-  }
-
   const file = formData.get("image") as File;
 
   if (!file) {
     return NextResponse.json({ message: "No image uploaded" }, { status: 400 });
   }
 
-  // Validate type
-  if (!file.type.startsWith("image/")) {
+  // Validate type: allow images, PDFs, and Word documents
+  const allowedTypes = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+
+  if (!(file.type.startsWith("image/") || allowedTypes.includes(file.type))) {
     return NextResponse.json({ message: "Invalid file type" }, { status: 400 });
   }
 
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  const uploadDir = path.join(process.cwd(), "public/uploads/user");
+  const uploadDir = path.join(process.cwd(), "public/uploads");
   await fs.mkdir(uploadDir, { recursive: true });
 
   const ext = file.name.split(".").pop();
@@ -33,6 +36,6 @@ export async function POST(req: Request) {
 
   return NextResponse.json({
     success: true, 
-    url: `/uploads/user/${filename}`,
+    url: `/uploads/${filename}`,
   });
 }

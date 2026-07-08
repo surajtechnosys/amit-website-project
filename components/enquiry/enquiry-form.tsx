@@ -19,7 +19,6 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { ArrowRight, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Status } from "@/lib/types";
 import { enquiryDefaultValues } from "@/lib/constants";
 import { Textarea } from "../ui/textarea";
 import { createEnquiry } from "@/lib/actions/enquiry-action";

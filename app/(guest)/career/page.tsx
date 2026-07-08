@@ -6,17 +6,15 @@ import {
   BriefcaseBusiness,
   CheckCircle2,
   Clock3,
-  FileUp,
   GraduationCap,
   MapPin,
-  Send,
   UsersRound,
 } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import herobanner2 from "@/images/herobanner2.jpg"
+import { getJobs } from "@/lib/actions/job-action"
+import CareerForm from "@/components/career/career-form"
+import { Job } from "@/lib/types"
 
 
 export const metadata: Metadata = {
@@ -78,7 +76,9 @@ function FieldLabel({
   )
 }
 
-export default function CareerPage() {
+export default async function CareerPage() {
+  const jobs = await getJobs()
+
   return (
     <div className="bg-white text-slate-900">
       <section className="relative isolate overflow-hidden bg-black/90 pt-32 text-white sm:pt-36">
@@ -164,7 +164,7 @@ export default function CareerPage() {
           </div>
 
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            {openings.map((job) => (
+            {jobs.length > 0  && jobs.map((job) => (
               <article
                 key={job.title}
                 className="rounded-2xl border border-blue-500 bg-slate-50 p-6 shadow-[0_14px_40px_rgba(15,23,42,0.05)]"
@@ -176,12 +176,12 @@ export default function CareerPage() {
                   {job.title}
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600">
-                  {job.summary}
+                  {job.shortDescription}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-600 bg-white px-3 py-1.5 text-xs font-semibold text-blue-600">
                     <Clock3 className="size-3.5" />
-                    {job.type}
+                    {job.employmentType?.replace("_", " ")}
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-600 bg-white px-3 py-1.5 text-xs font-semibold text-blue-600">
                     <MapPin className="size-3.5" />
@@ -250,126 +250,7 @@ export default function CareerPage() {
             </div>
           </aside>
 
-          <form className="rounded-2xl border border-blue-500 bg-slate-50 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.06)] sm:p-8">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="grid gap-2">
-                <FieldLabel htmlFor="full-name">Full Name</FieldLabel>
-                <Input
-                  id="full-name"
-                  name="fullName"
-                  placeholder="Enter your name"
-                  className="h-12 rounded-xl bg-white px-4"
-                  required
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <FieldLabel htmlFor="email">Email Address</FieldLabel>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  className="h-12 rounded-xl bg-white px-4"
-                  required
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <FieldLabel htmlFor="phone">Phone Number</FieldLabel>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+91"
-                  className="h-12 rounded-xl bg-white px-4"
-                  required
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <FieldLabel htmlFor="role">Preferred Role</FieldLabel>
-                <select
-                  id="role"
-                  name="role"
-                  className="h-12 w-full rounded-xl border border-input bg-white px-4 text-sm text-slate-700 outline-none transition focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-                  defaultValue=""
-                  required
-                >
-                  <option value="" disabled>
-                    Select a role
-                  </option>
-                  {openings.map((job) => (
-                    <option key={job.title} value={job.title}>
-                      {job.title}
-                    </option>
-                  ))}
-                  <option value="Other">Other suitable role</option>
-                </select>
-              </div>
-
-              <div className="grid gap-2">
-                <FieldLabel htmlFor="experience">Experience</FieldLabel>
-                <Input
-                  id="experience"
-                  name="experience"
-                  placeholder="Example: 2 years"
-                  className="h-12 rounded-xl bg-white px-4"
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <FieldLabel htmlFor="location">Current Location</FieldLabel>
-                <Input
-                  id="location"
-                  name="location"
-                  placeholder="City, State"
-                  className="h-12 rounded-xl bg-white px-4"
-                />
-              </div>
-            </div>
-
-            <div className="mt-5 grid gap-2">
-              <FieldLabel htmlFor="resume">Upload Resume</FieldLabel>
-              <div className="rounded-xl border border-dashed border-slate-300 bg-white p-4">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-3">
-                    <FileUp className="size-5 text-slate-500" />
-                    <p className="text-sm text-slate-600">
-                      PDF, DOC, or DOCX format preferred
-                    </p>
-                  </div>
-                  <Input
-                    id="resume"
-                    name="resume"
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    className="h-auto rounded-lg border-0 bg-transparent p-0 file:mr-3 file:h-9 file:rounded-full file:bg-slate-950 file:px-4 file:text-white"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-5 grid gap-2">
-              <FieldLabel htmlFor="message">Tell us about yourself</FieldLabel>
-              <Textarea
-                id="message"
-                name="message"
-                placeholder="Share your skills, availability, and the kind of work you are looking for."
-                className="min-h-32 rounded-xl bg-white px-4 py-3"
-              />
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs leading-5 text-slate-500">
-                By applying, you confirm the information shared is accurate.
-              </p>
-              <Button type="submit" size="lg" variant="default" className="h-12 rounded-full px-6 bg-blue-500">
-                Submit Application
-                <Send className="size-4" />
-              </Button>
-            </div>
-          </form>
+          <CareerForm jobs={jobs as Job[]} />
         </div>
       </section>
     </div>

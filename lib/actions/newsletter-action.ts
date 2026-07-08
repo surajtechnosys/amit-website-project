@@ -26,7 +26,7 @@ export async function getNewsletter(): Promise<Newsletter[]> {
 
 export async function createNewsletter(data: z.infer<typeof newsletterSchema>): Promise<ActionResponse> {
 
-  // try {
+  try {
     const newsletter = newsletterSchema.parse(data);
 
     await prisma.newsletterSubscription.create({
@@ -40,12 +40,12 @@ export async function createNewsletter(data: z.infer<typeof newsletterSchema>): 
       success: true,
       message: "Newsletter subscription created successfully",
     };
-  // } catch (error) {
-  //   return {
-  //     success: false,
-  //     message: formatError(error),
-  //   };
-  // }
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    };
+  }
 }
 
 export async function getNewsletterById(id: string) {
@@ -80,7 +80,7 @@ export async function updateNewsletter(
 ): Promise<ActionResponse> {
   try {
     const newsletter = newsletterSchema.parse(data);
-    
+
 
     await prisma.newsletterSubscription.update({
       where: { id },

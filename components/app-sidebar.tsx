@@ -18,12 +18,12 @@ import {
   BriefcaseBusiness,
   Command,
   Database,
-  Handshake,
   LayoutDashboardIcon,
   Mail,
   Settings,
   UsersIcon,
-  Mails
+  Mails,
+  ClipboardPenLine
 } from "lucide-react"
 
 const data = {
@@ -54,6 +54,11 @@ const data = {
       icon: <Mail />,
     },
     {
+      title: "Jobs",
+      url: "/admin/job",
+      icon: <BriefcaseBusiness />,
+    },
+    {
       title: "Career Applications",
       url: "/admin/career",
       icon: <BriefcaseBusiness />,
@@ -62,6 +67,11 @@ const data = {
       title: "Newsletter",
       url: "/admin/newsletter",
       icon: <Mails />,
+    },
+    {
+      title: "Testimonials",
+      url: "/admin/testimonial",
+      icon: <ClipboardPenLine />,
     },
     {
       title: "Users",

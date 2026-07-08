@@ -70,3 +70,15 @@ export const testimonialDefaultValues = {
   status: Status.ACTIVE,
 };
 
+export const jobsDefaultValues = {
+  title: "",
+  shortDescription: "",
+  description: "",
+  employmentType: "",
+  workMode: "",
+  experience: "",
+  location: "",
+  vacancies: "",
+  status: Status.ACTIVE,
+};
+
