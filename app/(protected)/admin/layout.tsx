@@ -1,14 +1,25 @@
+
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
 import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic"
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+
+    const session = await getServerSession(authOptions);
+
+    if(!session?.user) {
+        redirect("/login")
+    }
+
     return (
         <SidebarProvider
             style={
@@ -18,7 +29,7 @@ export default function RootLayout({
                 } as React.CSSProperties
             }
         >
-            <AppSidebar variant="inset" />
+            <AppSidebar variant="inset" user={session.user} />
             <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">

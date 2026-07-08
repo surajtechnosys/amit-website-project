@@ -1,59 +1,77 @@
-import NextAuth from "next-auth";
-import type { NextAuthOptions } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
-import { prisma } from "@/lib/db/prisma-helper";
+import NextAuth, { type AuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "./lib/db/prisma-helper";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
 
-export const authOptions: NextAuthOptions = {
-    providers: [
-        Credentials({
-            name: "credentials",
-            credentials: {
-                email: {},
-                password: {},
-            },
-            async authorize(credentials) {
-                if (credentials == null) return null;
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
 
-                // find user in database
-                const user = await prisma.user.findFirst({
-                    where: { email: credentials.email as string },
-                });
+export const authOptions: AuthOptions = {
+  secret: NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
+  },
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    CredentialsProvider({
+      credentials: {
+        email: { type: "email" },
+        password: { type: "password" },
+      },
+      async authorize(credentials) {
+        if (credentials == null) return null;
 
+        const user = await prisma.user.findFirst({
+          where: { email: credentials.email as string },
+        });
 
-                // check if user exist and if the password matches
-                if (user && user.password) {
-                    const isMatched = await bcrypt.compare(
-                        credentials.password as string,
-                        user.password,
-                    );
+        if (user && user.password) {
+          const isMatched = await bcrypt.compare(
+            credentials.password as string,
+            user.password,
+          );
 
+          if (isMatched) {
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+            };
+          }
+        }
 
-                    // if password  is correct , return user
-                    if (isMatched) {
-                        return {
-                            id: user.id,
-                            name: user.name,
-                            email: user.email,
-                        };
-                    }
-                }
+        return null;
+      },
+    }),
+  ],
+  callbacks: {
+    async session({ session, user, trigger, token }: any) {
+      session.user.id = token.sub;
+      session.user.role = token.role;
+      session.user.name = token.name;
+      session.user.email = token.email;
 
-                // if user does not exist or password does not matched return null
-                return null;
-            },
-        }),
-    ],
+      if (trigger === "update") {
+        session.user.name = user.name;
+      }
 
-    session: {
-        strategy: "jwt",
+      return session;
     },
+    async jwt({ token, user }: any) {
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+      }
 
-    pages: {
-        signIn: "/login",
+      return token;
     },
-
-    secret: process.env.AUTH_SECRET,
+  },
 };
 
 export default NextAuth(authOptions);

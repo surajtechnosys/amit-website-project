@@ -12,7 +12,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "No image uploaded" }, { status: 400 });
   }
 
-  // Validate type: allow images, PDFs, and Word documents
   const allowedTypes = [
     "application/pdf",
     "application/msword",

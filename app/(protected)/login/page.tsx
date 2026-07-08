@@ -1,7 +1,6 @@
 import { LoginForm } from '@/components/login-form'
-import React from 'react'
 
-const page = () => {
+const LoginPage = () => {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
@@ -11,4 +10,4 @@ const page = () => {
   )
 }
 
-export default page
+export default LoginPage
