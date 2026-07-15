@@ -1,6 +1,4 @@
-import {
-  Status,
-} from "../generated/prisma/enums";
+import { Status } from "@/lib/generated/prisma/client";
 
 export const APP_NAME = process.env.NEXT_APP_APP_NAME ?? "Asset Management System";
 export const APP_DESCRIPTION = process.env.NEXT_APP_DESCRIPTION ?? "Asset Management System";
@@ -21,6 +19,7 @@ export const userDefaultValues = {
 };
 
 export const bannerDefaultValues = {
+  tagline: "",
   title: "",
   description: "",
   image: "",

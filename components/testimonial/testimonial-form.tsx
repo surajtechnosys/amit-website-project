@@ -29,7 +29,7 @@ import { useRouter } from "next/navigation";
 import { testimonialDefaultValues } from "@/lib/constants";
 import { Textarea } from "../ui/textarea";
 import { createTestimonial, updateTestimonial } from "@/lib/actions/testimonial-action";
-import { Status } from "@prisma/client";
+import { Status } from "@/lib/generated/prisma/client";
 
 type TestimonialFormProps = {
   data?: Testimonial;

@@ -9,64 +9,9 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import outsourcingImage from "../images/outsourcing.jpg";
-import analyticsImage from "../images/analatics.jpg";
-import technologyImage from "../images/technology.jpg";
 import { Testimonial } from "@/lib/types";
 
-
-
-// const testimonials: Testimonial[] = [
-//   {
-//     quote:
-//       "Their transition team helped us go live with far less friction than we expected. The handoff was structured, the communication was clear, and the team felt dependable from day one.",
-//     name: "Aarav Mehta",
-//     title: "Operations Director",
-//     company: "Northstar Logistics",
-//     image: outsourcingImage,
-//     label: "Operational Delivery",
-//   },
-//   {
-//     quote:
-//       "We finally had reporting that was easy to act on. The dashboards, cadence, and visibility made it easier for leadership to make faster decisions with confidence.",
-//     name: "Maya Shah",
-//     title: "VP, Business Operations",
-//     company: "Vertex Analytics",
-//     image: analyticsImage,
-//     label: "Analytics & Reporting",
-//   },
-//   {
-//     quote:
-//       "Support and technical coordination became much smoother after the team stepped in. They brought process discipline without making the engagement feel heavy.",
-//     name: "Daniel Lee",
-//     title: "Program Lead",
-//     company: "Summit Recovery Services",
-//     image: technologyImage,
-//     label: "Support Services",
-//   },
-//   {
-//     quote:
-//       "Their project management approach ensured every milestone was delivered on time. Communication remained transparent throughout the engagement with stakeholders.",
-//     name: "Sophia Wilson",
-//     title: "Project Manager",
-//     company: "BrightEdge Technologies",
-//     image: outsourcingImage,
-//     label: "Project Management",
-//   },
-//   {
-//     quote:
-//       "The team quickly understood our business requirements and delivered scalable solutions that significantly improved our operational efficiency with minimal disruption.",
-//     name: "James Anderson",
-//     title: "CTO",
-//     company: "InnovateX Solutions",
-//     image: analyticsImage,
-//     label: "Technology Solutions",
-//   },
-// ];
-
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
-
-  console.log("testimonial", testimonial);
 
   return (
     <article className="group overflow-hidden rounded-[2rem] border border-[2px] border-orange-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-transform duration-300 hover:-translate-y-1">

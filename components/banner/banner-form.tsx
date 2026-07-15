@@ -72,6 +72,8 @@ const BannerForm = ({ data, update = false }: UserFormProps) => {
         res = await createBanner(values);
       }
 
+      console.log(res.message)
+
       if (!res?.success) {
         toast.error("Error", {
           description: res?.message,
@@ -95,6 +97,22 @@ const BannerForm = ({ data, update = false }: UserFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="name">Title</FormLabel>
+                  <FormControl>
+                    <Input id="name" placeholder="Enter title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="flex flex-col gap-5">
+            <FormField
+              control={form.control}
+              name="tagline"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="tagline">Tagline</FormLabel>
                   <FormControl>
                     <Input id="name" placeholder="Enter title" {...field} />
                   </FormControl>

@@ -4,6 +4,7 @@ import { Building2, Mail, Share2 } from "lucide-react"
 import GeneralComponent from './general'
 import EmailComponent from './email'
 import SocialComponent from './social'
+import { getSettings } from "@/lib/actions/settings-action"
 
 const tabMeta = {
   general: {
@@ -23,7 +24,12 @@ const tabMeta = {
   },
 } as const
 
-export default function ConfigurationPage() {
+export default async function ConfigurationPage() {
+
+  const setting = await getSettings()
+
+  console.log(setting)
+
   return (
     <Card className="border-slate-200/80 bg-white shadow-sm">
       <CardHeader className="border-b border-slate-200/70">
@@ -48,13 +54,13 @@ export default function ConfigurationPage() {
 
           <div className="pt-4">
             <TabsContent value="general">
-              <GeneralComponent />
+              <GeneralComponent setting={setting} />
             </TabsContent>
             <TabsContent value="email">
-              <EmailComponent />
+              <EmailComponent  setting={setting} />
             </TabsContent>
             <TabsContent value="social">
-              <SocialComponent />
+              <SocialComponent setting={setting} />
             </TabsContent>
           </div>
         </Tabs>

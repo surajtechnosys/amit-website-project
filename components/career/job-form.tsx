@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 import { Textarea } from "../ui/textarea";
 import { createJob, updateJob } from "@/lib/actions/job-action";
 import { jobsDefaultValues } from "@/lib/constants";
-import { EmploymentType, Status, WorkMode } from "@prisma/client";
+import { EmploymentType, Status, WorkMode } from "@/lib/generated/prisma/client";
 
 type JobFormProps = {
   data?: Job;

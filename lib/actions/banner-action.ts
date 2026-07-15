@@ -3,7 +3,6 @@
 import { prisma } from "../db/prisma-helper";
 import { bannerSchema } from "../validators";
 import { formatError, omitTimestamps } from "../utils";
-import { Banner } from "../types";
 import { z } from "zod";
 
 type ActionResponse = {
@@ -11,7 +10,7 @@ type ActionResponse = {
   message: string;
 };
 
-export async function getBanner(): Promise<Banner[]> {
+export async function getBanner(): Promise<any> {
   try {
     const banners = await prisma.banner.findMany({
       orderBy: { createdAt: "desc" },
@@ -35,6 +34,7 @@ export async function createBanner(data: z.infer<typeof bannerSchema>): Promise<
 
     await prisma.banner.create({
       data: {
+        tagline: banner.tagline,
         title: banner.title,
         description: banner.description,
         image: imageValue,
@@ -47,6 +47,7 @@ export async function createBanner(data: z.infer<typeof bannerSchema>): Promise<
       message: "Banner created successfully",
     };
   } catch (error) {
+    console.log(error)
     return {
       success: false,
       message: formatError(error),
@@ -93,6 +94,7 @@ export async function updateBanner(
         : banner.image ?? null;
 
     const updateData: any = {
+      tagline: banner.tagline,
       title: banner.title,
       description: banner.description,
       image: imageValue,

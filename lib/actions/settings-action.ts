@@ -11,66 +11,106 @@ import {
 type ActionResponse = {
   success: boolean
   message: string
+  data: any
 }
 
 const settingsId = "site-settings"
 
 type SiteSettingsInput = Parameters<typeof prisma.siteSettings.upsert>[0]["create"]
 
-async function upsertSiteSettings(data: Partial<Omit<SiteSettingsInput, "id">>): Promise<ActionResponse> {
+function getOptionalString(formData: FormData, key: string): string | undefined {
+  const value = formData.get(key)
+
+  if (value == null) {
+    return undefined
+  }
+
+  const text = String(value).trim()
+  return text === "" ? undefined : text
+}
+
+export async function getSettings() {
   try {
-    // Prefer updating existing settings so callers can pass partial payloads.
-    await prisma.siteSettings.update({ where: { id: settingsId }, data })
+    const siteSetting = await prisma.siteSettings.findFirst({
+      orderBy: { createdAt: "desc" },
+    });
 
-    return { success: true, message: "Settings saved successfully" }
-  } catch (error: any) {
-    try {
-      // If update failed (likely because the record doesn't exist), create it.
-      await prisma.siteSettings.create({
-        data: { id: settingsId, siteName: data.siteName ?? "", ...data },
-      })
-
-      return { success: true, message: "Settings saved successfully" }
-    } catch (createError) {
-      return { success: false, message: formatError(createError) }
-    }
+    return siteSetting;
+  } catch (error) {
+    return [];
   }
 }
 
-export async function saveGeneralSettings(formData: FormData): Promise<ActionResponse> {
+
+async function upsertSiteSettings(
+  data: Partial<Omit<SiteSettingsInput, "id">>
+) {
+  try {
+    await prisma.siteSettings.upsert({
+      where: {
+        id: settingsId,
+      },
+      create: {
+        id: settingsId,
+        siteName: data.siteName ?? "",
+        ...data,
+      },
+      update: data,
+    });
+
+    const setting = await getSettings();
+
+    return {
+      success: true,
+      message: "Settings saved successfully",
+      data: setting,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+      data: "",
+    };
+  }
+}
+
+export async function saveGeneralSettings(formData: FormData): Promise<any> {
+
   const payload = {
-    siteName: String(formData.get("siteName") ?? ""),
-    legalName: String(formData.get("legalName") ?? "") || null,
-    tagline: String(formData.get("tagline") ?? "") || null,
-    description: String(formData.get("description") ?? "") || null,
-    primaryEmail: String(formData.get("primaryEmail") ?? "") || null,
-    primaryPhone: String(formData.get("primaryPhone") ?? "") || null,
-    websiteUrl: String(formData.get("websiteUrl") ?? "") || null,
-    timezone: String(formData.get("timezone") ?? "") || null,
-    officeAddress: String(formData.get("officeAddress") ?? "") || null,
-    officeHours: String(formData.get("officeHours") ?? "") || null,
-    logoPath: String(formData.get("logoPath") ?? "") || null,
-    faviconPath: String(formData.get("faviconPath") ?? "") || null,
-    mapUrl: String(formData.get("mapUrl") ?? "") || null,
+    siteName: String(formData.get("siteName") ?? "").trim(),
+    legalName: getOptionalString(formData, "legalName"),
+    tagline: getOptionalString(formData, "tagline"),
+    description: getOptionalString(formData, "description"),
+    primaryEmail: getOptionalString(formData, "primaryEmail"),
+    primaryPhone: getOptionalString(formData, "primaryPhone"),
+    websiteUrl: getOptionalString(formData, "websiteUrl"),
+    timezone: getOptionalString(formData, "timezone"),
+    officeAddress: getOptionalString(formData, "officeAddress"),
+    officeHours: getOptionalString(formData, "officeHours"),
+    logoPath: getOptionalString(formData, "logoPath"),
+    faviconPath: getOptionalString(formData, "faviconPath"),
+    mapUrl: getOptionalString(formData, "mapUrl"),
     showPhone: formData.get("showPhone") === "on",
     showEmail: formData.get("showEmail") === "on",
+    teamMembers: getOptionalString(formData, "teamMembers"),
+    happyCustomers: getOptionalString(formData, "happyCustomers"),
+    operationalSupport: getOptionalString(formData, "operationalSupport"),
   }
-
   const parsed = generalSettingsSchema.parse(payload)
   return upsertSiteSettings(parsed)
 }
 
-export async function saveEmailSettings(formData: FormData): Promise<ActionResponse> {
+export async function saveEmailSettings(formData: FormData): Promise<any> {
   const payload = {
-    smtpHost: String(formData.get("smtpHost") ?? "") || null,
-    smtpPort: String(formData.get("smtpPort") ?? "") || null,
-    smtpUsername: String(formData.get("smtpUsername") ?? "") || null,
-    smtpPassword: String(formData.get("smtpPassword") ?? "") || null,
-    fromName: String(formData.get("fromName") ?? "") || null,
-    fromEmail: String(formData.get("fromEmail") ?? "") || null,
-    replyToEmail: String(formData.get("replyToEmail") ?? "") || null,
-    supportInbox: String(formData.get("supportInbox") ?? "") || null,
-    emailSignature: String(formData.get("emailSignature") ?? "") || null,
+    smtpHost: getOptionalString(formData, "smtpHost"),
+    smtpPort: getOptionalString(formData, "smtpPort"),
+    smtpUsername: getOptionalString(formData, "smtpUsername"),
+    smtpPassword: getOptionalString(formData, "smtpPassword"),
+    fromName: getOptionalString(formData, "fromName"),
+    fromEmail: getOptionalString(formData, "fromEmail"),
+    replyToEmail: getOptionalString(formData, "replyToEmail"),
+    supportInbox: getOptionalString(formData, "supportInbox"),
+    emailSignature: getOptionalString(formData, "emailSignature"),
     enableNotifications: formData.get("enableNotifications") === "on",
     storeDrafts: formData.get("storeDrafts") === "on",
   }
@@ -79,15 +119,15 @@ export async function saveEmailSettings(formData: FormData): Promise<ActionRespo
   return upsertSiteSettings(parsed)
 }
 
-export async function saveSocialSettings(formData: FormData): Promise<ActionResponse> {
+export async function saveSocialSettings(formData: FormData): Promise<any> {
   const payload = {
-    facebookUrl: String(formData.get("facebookUrl") ?? "") || null,
-    instagramUrl: String(formData.get("instagramUrl") ?? "") || null,
-    linkedinUrl: String(formData.get("linkedinUrl") ?? "") || null,
-    youtubeUrl: String(formData.get("youtubeUrl") ?? "") || null,
-    whatsappUrl: String(formData.get("whatsappUrl") ?? "") || null,
-    messengerUrl: String(formData.get("messengerUrl") ?? "") || null,
-    socialBio: String(formData.get("socialBio") ?? "") || null,
+    facebookUrl: getOptionalString(formData, "facebookUrl"),
+    instagramUrl: getOptionalString(formData, "instagramUrl"),
+    linkedinUrl: getOptionalString(formData, "linkedinUrl"),
+    youtubeUrl: getOptionalString(formData, "youtubeUrl"),
+    whatsappUrl: getOptionalString(formData, "whatsappUrl"),
+    messengerUrl: getOptionalString(formData, "messengerUrl"),
+    socialBio: getOptionalString(formData, "socialBio"),
     showSocialIcons: formData.get("showSocialIcons") === "on",
     openLinksNewTab: formData.get("openLinksNewTab") === "on",
   }

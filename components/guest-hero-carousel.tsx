@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
+import * as React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
-const heroVideoSrc = new URL("../images/hero1.mp4", import.meta.url).toString()
+const heroVideoSrc = new URL("../images/hero1.mp4", import.meta.url).toString();
 
 const heroSlides = [
   {
@@ -31,89 +31,94 @@ const heroSlides = [
     description:
       "Responsive service coverage designed to keep operations steady when things change.",
   },
-]
+];
 
 const trustMetrics = [
-  { label: "Team Members", value: 100, suffix: "+" },
-  { label: "Happy Customers", value: 20, suffix: "+" },
-  { label: "Operational Support", value: 24, suffix: "x7" },
-]
+  { label: "Team Members", key: "teamMembers", suffix: "+" },
+  { label: "Happy Customers",key: "happyCustomers", suffix: "+" },
+  { label: "Operational Support", key: "operationalSupport", suffix: "" },
+];
 
-const trustTags = ["US Client Delivery Experience", "Process-Driven Operations"]
+const trustTags = [
+  "US Client Delivery Experience",
+  "Process-Driven Operations",
+];
 
 function AnimatedCounter({
   value,
   suffix,
   active,
 }: {
-  value: number
-  suffix: string
-  active: boolean
+  value: number | string;
+  suffix: string;
+  active: boolean;
 }) {
-  const [displayValue, setDisplayValue] = React.useState(0)
+  const [displayValue, setDisplayValue] = React.useState(0);
+
+  const numericValue =
+    typeof value === "number" ? value : Number(value);
 
   React.useEffect(() => {
-    if (!active) return
+    if (!active || Number.isNaN(numericValue)) return;
 
-    let frame = 0
-    const duration = 1400
-    const start = performance.now()
+    let frame = 0;
+    const duration = 1400;
+    const start = performance.now();
 
     const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setDisplayValue(value * eased)
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      setDisplayValue(numericValue * eased);
 
       if (progress < 1) {
-        frame = window.requestAnimationFrame(tick)
+        frame = requestAnimationFrame(tick);
       }
-    }
+    };
 
-    frame = window.requestAnimationFrame(tick)
-    return () => window.cancelAnimationFrame(frame)
-  }, [active, value])
+    frame = requestAnimationFrame(tick);
 
-  const formatted = active
-    ? value % 1 === 0
+    return () => cancelAnimationFrame(frame);
+  }, [active, numericValue]);
+
+  const formatted =
+    numericValue % 1 === 0
       ? Math.round(displayValue).toString()
-      : displayValue.toFixed(2)
-    : value % 1 === 0
-      ? "0"
-      : "0.00"
+      : displayValue.toFixed(2);
 
   return (
     <span className="tabular-nums">
-      {formatted}
+      {Number.isNaN(numericValue) ? value : formatted}
       {suffix}
     </span>
-  )
+  );
 }
 
-export function GuestHeroSection() {
-  const [metricsVisible, setMetricsVisible] = React.useState(false)
-  const [activeSlide, setActiveSlide] = React.useState(0)
-  const metricsRef = React.useRef<HTMLDivElement | null>(null)
+export function GuestHeroSection({ settings, banners }: any) {
+  const [metricsVisible, setMetricsVisible] = React.useState(false);
+  const [activeSlide, setActiveSlide] = React.useState(0);
+  const metricsRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
-    const node = metricsRef.current
-    if (!node) return
+    const node = metricsRef.current;
+    if (!node) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => setMetricsVisible(entry.isIntersecting),
-      { threshold: 0.3 }
-    )
+      { threshold: 0.3 },
+    );
 
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [])
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   React.useEffect(() => {
     const timer = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % heroSlides.length)
-    }, 4500)
+      setActiveSlide((current) => (current + 1) % heroSlides.length);
+    }, 4500);
 
-    return () => window.clearInterval(timer)
-  }, [])
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
     <section className="relative isolate overflow-hidden text-white">
@@ -143,9 +148,9 @@ export function GuestHeroSection() {
               </h1>
 
               <p className="mt-5 max-w-2xl text-base leading-7 text-white/78 sm:text-xl">
-                Helping organizations scale through offshore back-office operations,
-                recovery support services, reporting, analytics, IT Services and
-                operational excellence.
+                Helping organizations scale through offshore back-office
+                operations, recovery support services, reporting, analytics, IT
+                Services and operational excellence.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -154,7 +159,10 @@ export function GuestHeroSection() {
                   size="lg"
                   className="rounded-full bg-orange-500 text-white px-6 shadow-none hover:bg-orange-600"
                 >
-                  <Link href="#services" className="inline-flex items-center gap-2">
+                  <Link
+                    href="/service"
+                    className="inline-flex items-center gap-2"
+                  >
                     Explore Services
                     <ArrowRight className="size-4" />
                   </Link>
@@ -166,7 +174,10 @@ export function GuestHeroSection() {
                   variant="outline"
                   className="rounded-full border-blue-500 bg-transparent px-6 text-blue-500 hover:bg-blue-600 hover:text-white"
                 >
-                  <Link href="/contact" className="inline-flex items-center gap-2">
+                  <Link
+                    href="/career"
+                    className="inline-flex items-center gap-2"
+                  >
                     Join Our Team
                     <ArrowRight className="size-4" />
                   </Link>
@@ -185,7 +196,7 @@ export function GuestHeroSection() {
                     >
                       <div className="text-3xl font-semibold tracking-tight text-white sm:text-[2rem]">
                         <AnimatedCounter
-                          value={metric.value}
+                          value={settings[metric.key]}
                           suffix={metric.suffix}
                           active={metricsVisible}
                         />
@@ -217,9 +228,9 @@ export function GuestHeroSection() {
 
               <div className="relative overflow-hidden rounded-[2.25rem] border border-white/12 bg-slate-950/40 shadow-[0_24px_80px_rgba(2,6,23,0.35)] backdrop-blur-md">
                 <div className="relative aspect-[4/4.35] min-h-[26rem]">
-                  {heroSlides.map((slide, index) => (
+                  {banners.map((banner : any, index :  number) => (
                     <div
-                      key={slide.title}
+                      key={banner.id}
                       className={[
                         "absolute inset-0 transition-all duration-700",
                         index === activeSlide
@@ -230,8 +241,8 @@ export function GuestHeroSection() {
                       ].join(" ")}
                     >
                       <Image
-                        src={slide.src}
-                        alt={slide.alt}
+                        src={banner.image}
+                        alt={banner.tagline}
                         fill
                         sizes="100vw"
                         priority={index === 0}
@@ -245,10 +256,10 @@ export function GuestHeroSection() {
                             Featured service view
                           </p>
                           <h2 className="mt-3 text-2xl font-semibold leading-tight text-white">
-                            {slide.title}
+                            {banner.tagline}
                           </h2>
                           <p className="mt-3 text-sm leading-6 text-white/78">
-                            {slide.description}
+                            {banner.description}
                           </p>
                         </div>
                       </div>
@@ -257,11 +268,11 @@ export function GuestHeroSection() {
                 </div>
 
                 <div className="absolute inset-x-0 bottom-5 flex justify-center gap-2 px-4">
-                  {heroSlides.map((slide, index) => (
+                  {banners.map((banner : any, index :  number) => (
                     <button
-                      key={slide.title}
+                      key={banner.id}
                       type="button"
-                      aria-label={`Show slide ${index + 1}: ${slide.title}`}
+                      aria-label={`Show slide ${index + 1}: ${banner.tagline}`}
                       className={[
                         "h-2.5 rounded-full transition-all duration-300",
                         index === activeSlide
@@ -278,5 +289,5 @@ export function GuestHeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

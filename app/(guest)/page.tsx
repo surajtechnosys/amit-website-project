@@ -7,14 +7,18 @@ import { GuestWhyClientsChooseUsSection } from "@/components/guest-why-clients-c
 import { getServices } from "@/lib/actions/service-action"
 import { Service, Testimonial } from "@/lib/types"
 import { getTestimonials } from "@/lib/actions/testimonial-action"
+import { getSettings } from "@/lib/actions/settings-action"
+import { getBanner } from "@/lib/actions/banner-action"
 
 export default async function GuestPage() {
   const services = await getServices();
   const testimonials = await getTestimonials();
+  const settings = await getSettings()
+  const banners = await getBanner();
 
   return (
     <>
-      <GuestHeroSection />
+      <GuestHeroSection settings={settings} banners={banners} />
       <GuestOperationalExcellenceSection />
       <GuestServicesSection services={services as Service[]} />
       <GuestWhyClientsChooseUsSection />

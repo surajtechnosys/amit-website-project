@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
@@ -15,6 +10,28 @@ datasource db {
 enum Status {
   ACTIVE
   INACTIVE
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  FREELANCE
+  INTERNSHIP
+}
+
+enum WorkMode {
+  REMOTE
+  HYBRID
+  ONSITE
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWING
+  SHORTLISTED
+  REJECTED
+  HIRED
 }
 
 model User {
@@ -64,6 +81,7 @@ model Session {
 
 model Banner {
   id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tagline     String
   image       String?
   title       String
   description String  @db.Text
@@ -91,21 +109,24 @@ model Enquiry {
 model SiteSettings {
   id String @id @default("site-settings")
 
-  siteName      String
-  legalName     String?
-  tagline       String?
-  description   String? @db.Text
-  primaryEmail  String?
-  primaryPhone  String?
-  websiteUrl    String?
-  timezone      String?
-  officeAddress String? @db.Text
-  officeHours   String?
-  logoPath      String?
-  faviconPath   String?
-  mapUrl        String?
-  showPhone     Boolean @default(true)
-  showEmail     Boolean @default(true)
+  siteName           String
+  legalName          String?
+  tagline            String?
+  description        String? @db.Text
+  primaryEmail       String?
+  primaryPhone       String?
+  websiteUrl         String?
+  timezone           String?
+  officeAddress      String? @db.Text
+  officeHours        String?
+  logoPath           String?
+  faviconPath        String?
+  mapUrl             String?
+  teamMembers        String?
+  happyCustomers     String?
+  operationalSupport String?
+  showPhone          Boolean @default(true)
+  showEmail          Boolean @default(true)
 
   smtpHost            String?
   smtpPort            String?
@@ -155,21 +176,23 @@ model Services {
 
   category ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-  serviceBenefits ServiceBenefits[]
-  capabilities    Capabilities[]
-  deliveryProcess DeliveryProcess[]
+  serviceBenefits ServiceBenefits?
+  capabilities    Capabilities?
+  deliveryProcess DeliveryProcess?
+  outcomeFocuses  OutcomeFocus?
+  contactSection  ContactSection?
 
-  createdAt      DateTime       @default(now()) @db.Timestamp(6)
-  updatedAt      DateTime       @updatedAt @db.Timestamp(6)
-  outcomeFocuses OutcomeFocus[]
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @db.Timestamp(6)
 }
 
 model ServiceBenefits {
-  id    String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title String
-  items String[]
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  items       String[]
+  description String?
 
-  serviceId String @db.Uuid
+  serviceId String @unique @db.Uuid
 
   service Services @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
@@ -178,11 +201,12 @@ model ServiceBenefits {
 }
 
 model Capabilities {
-  id    String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title String
-  items String[]
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  items       String[]
+  description String?
 
-  serviceId String @db.Uuid
+  serviceId String @unique @db.Uuid
 
   service Services @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
@@ -191,11 +215,12 @@ model Capabilities {
 }
 
 model DeliveryProcess {
-  id    String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title String
-  items String[]
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  items       String[]
+  description String?
 
-  serviceId String @db.Uuid
+  serviceId String @unique @db.Uuid
 
   service Services @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
@@ -207,12 +232,85 @@ model OutcomeFocus {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title       String
   items       String[]
-  description String
+  description String?
 
-  serviceId String @db.Uuid
+  serviceId String @unique @db.Uuid
 
   service Services @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt @db.Timestamp(6)
+}
+
+model ContactSection {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  description String? @db.Text
+  status      Status  @default(ACTIVE)
+
+  serviceId String @unique @db.Uuid
+
+  service Services @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @db.Timestamp(6)
+}
+
+model NewsletterSubscription {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email  String @unique
+  status Status @default(ACTIVE)
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @db.Timestamp(6)
+}
+
+model Testimonial {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String
+  designation String
+  company     String
+  tag         String
+  content     String  @db.Text
+  image       String?
+  status      Status  @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Job {
+  id               String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title            String
+  shortDescription String         @db.Text
+  description      String?        @db.Text
+  employmentType   EmploymentType
+  workMode         WorkMode
+  experience       String?
+  location         String?
+  vacancies        Int?
+  status           Status         @default(ACTIVE)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  career CareerApplication[]
+}
+
+model CareerApplication {
+  id         String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullName   String
+  email      String
+  phone      String
+  role       String
+  experience String
+  location   String
+  resume     String
+  message    String            @db.Text
+  jobId      String            @db.Uuid
+  status     ApplicationStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  job Job? @relation(fields: [jobId], references: [id], onDelete: Cascade)
 }

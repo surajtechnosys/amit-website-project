@@ -14,7 +14,6 @@ import { Textarea } from '../ui/textarea';
 import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Status } from "@/lib/types";
-import { createServiceCategory, updateServiceCategory } from '@/lib/actions/service-category-action';
 import { createNewsletter, updateNewsletter } from '@/lib/actions/newsletter-action';
 
 type UserFormProps = {

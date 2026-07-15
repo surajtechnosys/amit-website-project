@@ -1,10 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
@@ -85,6 +81,7 @@ model Session {
 
 model Banner {
   id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tagline     String
   image       String?
   title       String
   description String  @db.Text
@@ -112,21 +109,24 @@ model Enquiry {
 model SiteSettings {
   id String @id @default("site-settings")
 
-  siteName      String
-  legalName     String?
-  tagline       String?
-  description   String? @db.Text
-  primaryEmail  String?
-  primaryPhone  String?
-  websiteUrl    String?
-  timezone      String?
-  officeAddress String? @db.Text
-  officeHours   String?
-  logoPath      String?
-  faviconPath   String?
-  mapUrl        String?
-  showPhone     Boolean @default(true)
-  showEmail     Boolean @default(true)
+  siteName           String
+  legalName          String?
+  tagline            String?
+  description        String? @db.Text
+  primaryEmail       String?
+  primaryPhone       String?
+  websiteUrl         String?
+  timezone           String?
+  officeAddress      String? @db.Text
+  officeHours        String?
+  logoPath           String?
+  faviconPath        String?
+  mapUrl             String?
+  teamMembers        String?
+  happyCustomers     String?
+  operationalSupport String?
+  showPhone          Boolean @default(true)
+  showEmail          Boolean @default(true)
 
   smtpHost            String?
   smtpPort            String?

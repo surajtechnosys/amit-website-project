@@ -79,7 +79,7 @@ const data = {
       icon: <UsersIcon />,
     },
     {
-      title: "Content",
+      title: "Banner",
       url: "/admin/banner",
       icon: <BarChart3 />,
     },

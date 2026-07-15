@@ -1,6 +1,9 @@
 import z from "zod";
-import { Status } from "./generated/prisma/enums";
-import { ApplicationStatus, EmploymentType, WorkMode } from "@prisma/client";
+import { ApplicationStatus, EmploymentType, Status, WorkMode } from "./generated/prisma";
+
+const nullableOptionalString = z.string().nullable().optional();
+const nullableOptionalEmail = z.union([z.email(), z.literal(""), z.null()]).optional();
+const nullableOptionalUrl = z.union([z.string().url(), z.literal(""), z.null()]).optional();
 
 export const userSchema = z.object({
   id: z.string().optional(),
@@ -16,6 +19,7 @@ export const userSchema = z.object({
 
 export const bannerSchema = z.object({
   id: z.string().optional(),
+  tagline: z.string().min(1, "Tagline is required"),
   title: z.string().min(1, "title is required"),
   description: z.string().min(1, "description is required"),
   image: z.union([z.instanceof(File), z.string().nullable()]).optional(),
@@ -38,44 +42,47 @@ export const enquirySchema = z.object({
 
 export const generalSettingsSchema = z.object({
   siteName: z.string().min(1, "Site name is required"),
-  legalName: z.string().optional(),
-  tagline: z.string().optional(),
-  description: z.string().optional(),
-  primaryEmail: z.email().optional().or(z.literal("")),
-  primaryPhone: z.string().optional(),
-  websiteUrl: z.string().url().optional().or(z.literal("")),
-  timezone: z.string().optional(),
-  officeAddress: z.string().optional(),
-  officeHours: z.string().optional(),
-  logoPath: z.string().optional(),
-  faviconPath: z.string().optional(),
-  mapUrl: z.string().optional(),
+  legalName: nullableOptionalString,
+  tagline: nullableOptionalString,
+  description: nullableOptionalString,
+  primaryEmail: nullableOptionalEmail,
+  primaryPhone: nullableOptionalString,
+  websiteUrl: nullableOptionalUrl,
+  timezone: nullableOptionalString,
+  officeAddress: nullableOptionalString,
+  officeHours: nullableOptionalString,
+  logoPath: nullableOptionalString,
+  faviconPath: nullableOptionalString,
+  mapUrl: nullableOptionalString,
+  teamMembers: nullableOptionalString,
+  happyCustomers: nullableOptionalString,
+  operationalSupport: nullableOptionalString,
   showPhone: z.boolean().default(true),
   showEmail: z.boolean().default(true),
 });
 
 export const emailSettingsSchema = z.object({
-  smtpHost: z.string().optional(),
-  smtpPort: z.string().optional(),
-  smtpUsername: z.string().optional(),
-  smtpPassword: z.string().optional(),
-  fromName: z.string().optional(),
-  fromEmail: z.email().optional().or(z.literal("")),
-  replyToEmail: z.email().optional().or(z.literal("")),
-  supportInbox: z.email().optional().or(z.literal("")),
-  emailSignature: z.string().optional(),
+  smtpHost: nullableOptionalString,
+  smtpPort: nullableOptionalString,
+  smtpUsername: nullableOptionalString,
+  smtpPassword: nullableOptionalString,
+  fromName: nullableOptionalString,
+  fromEmail: nullableOptionalEmail,
+  replyToEmail: nullableOptionalEmail,
+  supportInbox: nullableOptionalEmail,
+  emailSignature: nullableOptionalString,
   enableNotifications: z.boolean().default(true),
   storeDrafts: z.boolean().default(false),
 });
 
 export const socialSettingsSchema = z.object({
-  facebookUrl: z.string().optional(),
-  instagramUrl: z.string().optional(),
-  linkedinUrl: z.string().optional(),
-  youtubeUrl: z.string().optional(),
-  whatsappUrl: z.string().optional(),
-  messengerUrl: z.string().optional(),
-  socialBio: z.string().optional(),
+  facebookUrl: nullableOptionalUrl,
+  instagramUrl: nullableOptionalUrl,
+  linkedinUrl: nullableOptionalUrl,
+  youtubeUrl: nullableOptionalUrl,
+  whatsappUrl: nullableOptionalUrl,
+  messengerUrl: nullableOptionalUrl,
+  socialBio: nullableOptionalString,
   showSocialIcons: z.boolean().default(true),
   openLinksNewTab: z.boolean().default(true),
 });

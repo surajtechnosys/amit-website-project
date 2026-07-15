@@ -5,10 +5,9 @@ import crypto from "crypto";
 
 export async function POST(req: Request) {
   const formData = await req.formData();
+  const file = formData.get("image") ?? formData.get("file");
 
-  const file = formData.get("image") as File;
-
-  if (!file) {
+  if (!(file instanceof File)) {
     return NextResponse.json({ message: "No image uploaded" }, { status: 400 });
   }
 
@@ -18,7 +17,9 @@ export async function POST(req: Request) {
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   ];
 
-  if (!(file.type.startsWith("image/") || allowedTypes.includes(file.type))) {
+  const contentType = typeof file.type === "string" ? file.type : "";
+
+  if (!(contentType.startsWith("image/") || allowedTypes.includes(contentType))) {
     return NextResponse.json({ message: "Invalid file type" }, { status: 400 });
   }
 
@@ -28,13 +29,13 @@ export async function POST(req: Request) {
   const uploadDir = path.join(process.cwd(), "public/uploads");
   await fs.mkdir(uploadDir, { recursive: true });
 
-  const ext = file.name.split(".").pop();
+  const ext = file.name.split(".").pop() || "bin";
   const filename = `${crypto.randomUUID()}.${ext}`;
 
   await fs.writeFile(path.join(uploadDir, filename), buffer);
 
   return NextResponse.json({
-    success: true, 
+    success: true,
     url: `/uploads/${filename}`,
   });
 }
