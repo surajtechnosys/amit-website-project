@@ -58,8 +58,12 @@ export function GuestFooter({
   services: any;
 }) {
   const [newsletter, setNewsletter] = useState("");
-
-  console.log("services in footer", services);
+  const activeServices = Array.isArray(services)
+    ? services.filter(
+        (service: any) =>
+          String(service?.status ?? "").toLowerCase() === "active",
+      )
+    : [];
 
   const handleNewsletterSubmit = async (e: any) => {
     e.preventDefault();
@@ -130,14 +134,14 @@ export function GuestFooter({
           <div>
             <p className="text-xl font-semibold text-orange-500">Services</p>
             <div className="mt-5 grid gap-4 text-sm text-slate-300">
-              {services.filter((service: any) => service.status.toLowerCase() === "active").map((link: any) => (
+              {activeServices.map((service: any, index: number) => (
                 <Link
-                  key={link.name}
-                  href={link.href}
+                  key={index}
+                  href={service?.id ? `/service/${service.id}` : "/service"}
                   className="inline-flex items-center gap-2 transition hover:text-white"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                  {link.name}
+                  {service?.title ?? service?.name ?? "Service"}
                 </Link>
               ))}
             </div>
@@ -218,6 +222,7 @@ export function GuestFooter({
           <div className="flex flex-wrap gap-4 text-sm">
             {socialLinks.map((social) => {
               const Icon = social.icon;
+
               return (
                 <a
                   key={social.label}

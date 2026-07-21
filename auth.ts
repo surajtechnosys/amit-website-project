@@ -30,6 +30,8 @@ export const authOptions: AuthOptions = {
           where: { email: credentials.email as string },
         });
 
+        console.log("user", user);
+
         if (user && user.password) {
           const isMatched = await bcrypt.compare(
             credentials.password as string,
