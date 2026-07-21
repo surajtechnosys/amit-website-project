@@ -30,7 +30,7 @@ const Home = () => {
 
             <div className="col-span-2 space-y-2">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold">Item</h2>
+                <h2 className="font-semibold">Trust Metrics List</h2>
                 <Button>Add list</Button>
               </div>
               <Input />
@@ -64,7 +64,7 @@ const Home = () => {
 
             <div className="col-span-2 space-y-2">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold">Item</h2>
+                <h2 className="font-semibold">List</h2>
                 <Button>Add list</Button>
               </div>
               <Input />

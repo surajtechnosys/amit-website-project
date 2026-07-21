@@ -14,6 +14,8 @@ import herobanner2 from "@/images/herobanner2.jpg"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { getServices } from "@/lib/actions/service-action"
+import { getServiceCategory } from "@/lib/actions/service-category-action"
+import ServiceTab from "./service-tab"
 
 export const metadata: Metadata = {
   title: "Services | AS Services",
@@ -47,7 +49,8 @@ const deliveryPoints = [
 
 export default async function ServicePage() {
   const services = await getServices();
-  
+  const serviceCategories = await getServiceCategory();
+
   return (
     <div className="bg-white text-slate-900">
       <section className="relative isolate overflow-hidden bg-[#062B36] pt-32 text-white sm:pt-36">
@@ -64,10 +67,10 @@ export default async function ServicePage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_32%),linear-gradient(90deg,rgba(2,6,23,0.92)_0%,rgba(2,6,23,0.72)_44%,rgba(2,6,23,0.85)_100%)]" />
         </div>
 
-      
+
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div className="max-w-3xl">
-          
+
             <h1 className="mt-7 text-4xl font-semibold text-orange-500 text-balance sm:text-5xl lg:text-6xl">
               Services built for scale, support, and smarter delivery.
             </h1>
@@ -108,8 +111,8 @@ export default async function ServicePage() {
               </div>
 
               <div className="mt-5 grid gap-3">
-                {services.length > 0 && services.map(
-                  (service, index) => (
+                {services.length > 0 && services.slice(0,3).map(
+                  (service: any, index: number) => (
                     <div
                       key={service.id}
                       className="service-meter rounded-lg border border-white/10 bg-slate-950/35 p-4"
@@ -146,45 +149,8 @@ export default async function ServicePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            {services.map((service, index) => {
+          <ServiceTab serviceCategories={serviceCategories} services={services} />
 
-              return (
-                <article
-                  id={service.id}
-                  key={service.title}
-                  className="service-card group relative overflow-hidden rounded-lg border border-orange-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)]"
-                  style={{ animationDelay: `${index * 90}ms` }}
-                >
-                  <div className="absolute inset-x-0 top-0 h-1 service-shine" />
-
-                  <h3 className="mt-5 text-xl font-semibold text-orange-500">
-                    {service.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">
-                    {service.shortDescription}
-                  </p>
-
-                  <div className="mt-6 grid gap-3">
-                    {service.serviceBenefits?.items.map((feature) => (
-                      <div key={feature} className="flex items-center gap-2 text-sm text-slate-700">
-                        <CheckCircle2 className="size-4 shrink-0 text-emerald-500" />
-                        <span>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Link
-                    href={`/service/${service.id}`}
-                    className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-500 transition group-hover:text-cyan-700"
-                  >
-                    View service details
-                    <ArrowRight className="size-4 transition group-hover:translate-x-1" />
-                  </Link>
-                </article>
-              )
-            })}
-          </div>
         </div>
       </section>
 
