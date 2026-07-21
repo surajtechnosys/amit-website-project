@@ -84,6 +84,16 @@ export const socialSettingsSchema = z.object({
   openLinksNewTab: z.boolean().default(true),
 });
 
+export const servicePageSettingsSchema = z.object({
+  siteName: z.string().min(1, "Site name is required"),
+  serviceHeroTitle: nullableOptionalString,
+  serviceHeroDescription: nullableOptionalString,
+  serviceDeliveryTagline: nullableOptionalString,
+  serviceDeliveryTitle: nullableOptionalString,
+  serviceDeliveryDescription: nullableOptionalString,
+  serviceDeliveryCards: nullableOptionalString,
+});
+
 export const serviceCategorySchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1, "name is required"),

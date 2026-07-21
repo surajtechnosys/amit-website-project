@@ -31,7 +31,7 @@ export default async function Page() {
               <About />
             </TabsContent>
             <TabsContent value="services">
-              <Services />
+              <Services setting={setting} />
             </TabsContent>
             <TabsContent value="contact">
               <Contact />

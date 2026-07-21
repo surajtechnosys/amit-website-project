@@ -5,16 +5,22 @@ import { formatError } from "../utils"
 import {
   emailSettingsSchema,
   generalSettingsSchema,
+  servicePageSettingsSchema,
   socialSettingsSchema,
 } from "../validators"
 
 type ActionResponse = {
   success: boolean
   message: string
-  data: any
+  data: unknown
 }
 
 const settingsId = "site-settings"
+
+type SiteSettingsPayload = {
+  siteName: string
+  [key: string]: string | boolean | undefined
+}
 
 function getOptionalString(formData: FormData, key: string): string | undefined {
   const value = formData.get(key)
@@ -43,13 +49,13 @@ export async function getSettings() {
     });
 
     return siteSetting;
-  } catch (error) {
+  } catch {
     return [];
   }
 }
 
 
-async function upsertSiteSettings(data: Record<string, any>) {
+async function upsertSiteSettings(data: SiteSettingsPayload): Promise<ActionResponse> {
   try {
     await prisma.siteSettings.upsert({
       where: {
@@ -79,7 +85,7 @@ async function upsertSiteSettings(data: Record<string, any>) {
   }
 }
 
-export async function saveGeneralSettings(formData: FormData): Promise<any> {
+export async function saveGeneralSettings(formData: FormData): Promise<ActionResponse> {
 
   const payload = {
     siteName: String(formData.get("siteName") ?? "").trim(),
@@ -102,7 +108,7 @@ export async function saveGeneralSettings(formData: FormData): Promise<any> {
   return upsertSiteSettings(parsed)
 }
 
-export async function saveEmailSettings(formData: FormData): Promise<any> {
+export async function saveEmailSettings(formData: FormData): Promise<ActionResponse> {
   const payload = {
     smtpHost: getOptionalString(formData, "smtpHost"),
     smtpPort: getOptionalString(formData, "smtpPort"),
@@ -121,7 +127,7 @@ export async function saveEmailSettings(formData: FormData): Promise<any> {
   return upsertSiteSettings(parsed)
 }
 
-export async function saveSocialSettings(formData: FormData): Promise<any> {
+export async function saveSocialSettings(formData: FormData): Promise<ActionResponse> {
   const payload = {
     facebookUrl: getOptionalString(formData, "facebookUrl"),
     instagramUrl: getOptionalString(formData, "instagramUrl"),
@@ -138,7 +144,22 @@ export async function saveSocialSettings(formData: FormData): Promise<any> {
   return upsertSiteSettings(parsed)
 }
 
-export async function saveHomePageSettings(formData: FormData): Promise<any> {
+export async function saveServicePageSettings(formData: FormData): Promise<ActionResponse> {
+  const payload = {
+    siteName: String(formData.get("siteName") ?? "").trim(),
+    serviceHeroTitle: getOptionalString(formData, "serviceHeroTitle"),
+    serviceHeroDescription: getOptionalString(formData, "serviceHeroDescription"),
+    serviceDeliveryTagline: getOptionalString(formData, "serviceDeliveryTagline"),
+    serviceDeliveryTitle: getOptionalString(formData, "serviceDeliveryTitle"),
+    serviceDeliveryDescription: getOptionalString(formData, "serviceDeliveryDescription"),
+    serviceDeliveryCards: getOptionalString(formData, "serviceDeliveryCards"),
+  }
+
+  const parsed = servicePageSettingsSchema.parse(payload)
+  return upsertSiteSettings(parsed)
+}
+
+export async function saveHomePageSettings(formData: FormData): Promise<ActionResponse> {
   const payload = {
     siteName: String(formData.get("siteName") ?? "").trim(),
     legalName: getOptionalString(formData, "legalName"),

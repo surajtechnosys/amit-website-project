@@ -140,6 +140,12 @@ model SiteSettings {
   globalDeliveryTitle   String?
   globalDeliveryDescription String? @db.Text
   globalDeliveryImagePath String?
+  serviceHeroTitle      String?
+  serviceHeroDescription String? @db.Text
+  serviceDeliveryTagline String?
+  serviceDeliveryTitle   String?
+  serviceDeliveryDescription String? @db.Text
+  serviceDeliveryCards   String? @db.Text
   showPhone          Boolean @default(true)
   showEmail          Boolean @default(true)
 

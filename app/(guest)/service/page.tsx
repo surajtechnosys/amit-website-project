@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import {
   ArrowRight,
-  CheckCircle2,
   Gauge,
   LineChart,
   Settings2,
@@ -15,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { getServices } from "@/lib/actions/service-action"
 import { getServiceCategory } from "@/lib/actions/service-category-action"
+import { getSettings } from "@/lib/actions/settings-action"
 import ServiceTab from "./service-tab"
 
 export const metadata: Metadata = {
@@ -23,33 +23,88 @@ export const metadata: Metadata = {
     "Explore AS Services capabilities across back office operations, analytics, technical support, IT consulting, managed services, and recovery support.",
 }
 
-const deliveryPoints = [
-  {
-    icon: ShieldCheck,
-    title: "Quality Controls",
-    description: "Defined checks, documented processes, and review loops for consistent delivery.",
-  },
-  {
-    icon: Gauge,
-    title: "Scalable Teams",
-    description: "Flexible delivery capacity that can expand with your workload and priorities.",
-  },
-  {
-    icon: Settings2,
-    title: "Process Discipline",
-    description: "Clear ownership, practical SOPs, and measurable operational routines.",
-  },
-  {
-    icon: LineChart,
-    title: "Visible Outcomes",
-    description: "Dashboards and reporting that make performance easier to monitor and improve.",
-  },
-]
+type DeliveryCard = {
+  title: string;
+  summary: string;
+};
+
+type ServiceItem = {
+  id: string;
+  title: string;
+  status: string;
+};
+
+const deliveryIcons = [ShieldCheck, Gauge, Settings2, LineChart];
+
+function parseDeliveryCards(
+  value: string | null | undefined,
+  fallback: DeliveryCard[],
+) {
+  if (!value) return fallback;
+
+  const trimmed = value.trim();
+  if (!trimmed) return fallback;
+
+  try {
+    const parsed = JSON.parse(trimmed);
+    if (Array.isArray(parsed)) {
+      return parsed
+        .map((item) => ({
+          title: String(item?.title ?? "").trim(),
+          summary: String(item?.summary ?? item?.content ?? "").trim(),
+        }))
+        .filter((item) => item.title || item.summary);
+    }
+  } catch {
+    // fall through to fallback values
+  }
+
+  return fallback;
+}
 
 
 export default async function ServicePage() {
+  const settings = await getSettings();
   const services = await getServices();
   const serviceCategories = await getServiceCategory();
+  const featuredServices = services as ServiceItem[];
+  const deliveryCards = parseDeliveryCards(settings?.serviceDeliveryCards, [
+    {
+      title: "Quality Controls",
+      summary:
+        "Defined checks, documented processes, and review loops for consistent delivery.",
+    },
+    {
+      title: "Scalable Teams",
+      summary:
+        "Flexible delivery capacity that can expand with your workload and priorities.",
+    },
+    {
+      title: "Process Discipline",
+      summary:
+        "Clear ownership, practical SOPs, and measurable operational routines.",
+    },
+    {
+      title: "Visible Outcomes",
+      summary:
+        "Dashboards and reporting that make performance easier to monitor and improve.",
+    },
+  ]);
+
+  const heroTitle =
+    settings?.serviceHeroTitle ??
+    "Services built for scale, support, and smarter delivery.";
+  const heroDescription =
+    settings?.serviceHeroDescription ??
+    "AS Services combines operations, analytics, IT support, and consulting into one focused delivery model, helping teams move faster with dependable execution and visible outcomes.";
+  const deliveryTagline =
+    settings?.serviceDeliveryTagline ?? "Delivery Method";
+  const deliveryTitle =
+    settings?.serviceDeliveryTitle ??
+    "Advanced support, grounded in operational discipline.";
+  const deliveryDescription =
+    settings?.serviceDeliveryDescription ??
+    "We keep the model simple for your team: define the workflow, assign ownership, measure the output, and improve the process.";
 
   return (
     <div className="bg-white text-slate-900">
@@ -72,13 +127,11 @@ export default async function ServicePage() {
           <div className="max-w-3xl">
 
             <h1 className="mt-7 text-4xl font-semibold text-orange-500 text-balance sm:text-5xl lg:text-6xl">
-              Services built for scale, support, and smarter delivery.
+              {heroTitle}
             </h1>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
-              AS Services combines operations, analytics, IT support, and
-              consulting into one focused delivery model, helping teams move
-              faster with dependable execution and visible outcomes.
+              {heroDescription}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -111,8 +164,8 @@ export default async function ServicePage() {
               </div>
 
               <div className="mt-5 grid gap-3">
-                {services.length > 0 && services.slice(0,3).map(
-                  (service: any, index: number) => (
+                {featuredServices.length > 0 && featuredServices.slice(0,3).map(
+                  (service, index: number) => (
                     <div
                       key={service.id}
                       className="service-meter rounded-lg border border-white/10 bg-slate-950/35 p-4"
@@ -158,20 +211,19 @@ export default async function ServicePage() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
           <div>
             <p className="text-sm font-semibold uppercase text-blue-500">
-              Delivery Method
+              {deliveryTagline}
             </p>
             <h2 className="mt-3 text-3xl font-semibold text-orange-500 sm:text-4xl">
-              Advanced support, grounded in operational discipline.
+              {deliveryTitle}
             </h2>
             <p className="mt-4 text-base leading-7 text-slate-600">
-              We keep the model simple for your team: define the workflow,
-              assign ownership, measure the output, and improve the process.
+              {deliveryDescription}
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {deliveryPoints.map((point, index) => {
-              const Icon = point.icon
+            {deliveryCards.map((point, index) => {
+              const Icon = deliveryIcons[index % deliveryIcons.length]
 
               return (
                 <div
@@ -184,7 +236,7 @@ export default async function ServicePage() {
                     {point.title}
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-slate-600">
-                    {point.description}
+                    {point.summary}
                   </p>
                 </div>
               )
