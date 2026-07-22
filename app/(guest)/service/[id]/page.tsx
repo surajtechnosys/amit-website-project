@@ -57,7 +57,10 @@ function ServiceVisual({ service }: { service: Service }) {
         className="absolute inset-8 rounded-full blur-3xl"
       />
       <div className="detail-orbit absolute inset-0 rounded-lg border border-white/12 bg-white/10 p-5 shadow-[0_30px_110px_rgba(0,0,0,0.25)] backdrop-blur">
-        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+        
+        <Image src={service.image as string} alt={service.title} fill className="object-cover object-center rounded-lg" />
+ 
+        {/* <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div className="flex items-center gap-3">
             <div>
               <p className="text-xs font-semibold uppercase text-slate-400">
@@ -69,9 +72,9 @@ function ServiceVisual({ service }: { service: Service }) {
           <span className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 text-xs font-semibold text-emerald-200">
             Active
           </span>
-        </div>
+        </div> */}
 
-        <div className="mt-6 grid gap-4">
+        {/* <div className="mt-6 grid gap-4">
           {["24/7-ready", "QA checks", "SOP-led"].map((metric, index) => (
             <div
               key={index}
@@ -93,9 +96,9 @@ function ServiceVisual({ service }: { service: Service }) {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
 
-        <div className="mt-6 grid grid-cols-3 gap-3">
+        {/* <div className="mt-6 grid grid-cols-3 gap-3">
           {["Plan", "Run", "Improve"].map((item, index) => (
             <div
               key={item}
@@ -105,7 +108,7 @@ function ServiceVisual({ service }: { service: Service }) {
               <p className="text-xs font-semibold text-cyan-200">{item}</p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   )

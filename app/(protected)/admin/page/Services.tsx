@@ -218,7 +218,7 @@ export default function Services({ setting }: { setting?: ServicePageSetting }) 
                 id="serviceDeliveryDescription"
                 name="serviceDeliveryDescription"
                 className="min-h-[120px] rounded-xl"
-                defaultValue={configuration?.serviceDeliveryDescription}
+                defaultValue={configuration?.serviceDeliveryDescription ?? ""}
                 placeholder="We keep the model simple for your team..."
               />
             </div>

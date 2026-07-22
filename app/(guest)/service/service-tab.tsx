@@ -67,7 +67,7 @@ export default function ServiceTab({ serviceCategories, services }: any) {
                             </div>
                         </div>
 
-                        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        <div className="grid gap-6 md:grid-cols-1 xl:grid-cols-1">
                             {selectedServices.map((service: any, index: number) => (
                                 <article
                                     id={service.id}
@@ -77,16 +77,16 @@ export default function ServiceTab({ serviceCategories, services }: any) {
                                 >
                                     <div className="absolute inset-x-0 top-0 h-1 service-shine" />
 
-                                    <h3 className="mt-5 text-xl font-semibold text-orange-500">
+                                    <h3 className="mt-5 text-3xl font-semibold text-orange-500">
                                         {service.title}
                                     </h3>
-                                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                                    <p className="mt-3 text-xl leading-6 text-slate-600">
                                         {service.shortDescription}
                                     </p>
 
                                     <div className="mt-6 grid gap-3">
                                         {service.serviceBenefits?.items.map((feature: any) => (
-                                            <div key={feature} className="flex items-center gap-2 text-sm text-slate-700">
+                                            <div key={feature} className="flex items-center text-xl gap-2 text-slate-700">
                                                 <CheckCircle2 className="size-4 shrink-0 text-emerald-500" />
                                                 <span>{feature}</span>
                                             </div>

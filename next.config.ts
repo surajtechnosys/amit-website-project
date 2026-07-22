@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
     ],
   },
   
+   allowedDevOrigins: [
+    "200.141.2.23",
+  ],
+
   experimental: {
     serverActions: {
       bodySizeLimit: "2000mb", // Default is 1MB

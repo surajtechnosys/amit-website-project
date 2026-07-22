@@ -1,6 +1,7 @@
 "use server"
 
 import { prisma } from "../db/prisma-helper"
+import type { SiteSettings } from "../generated/prisma"
 import { formatError } from "../utils"
 import {
   emailSettingsSchema,
@@ -12,14 +13,14 @@ import {
 type ActionResponse = {
   success: boolean
   message: string
-  data: unknown
+  data: any
 }
 
 const settingsId = "site-settings"
 
 type SiteSettingsPayload = {
-  siteName: string
-  [key: string]: string | boolean | undefined
+  siteName?: string
+  [key: string]: string | boolean | null | undefined
 }
 
 function getOptionalString(formData: FormData, key: string): string | undefined {
@@ -42,15 +43,15 @@ function getStringList(formData: FormData, key: string): string | undefined {
   return values.length > 0 ? JSON.stringify(values) : undefined
 }
 
-export async function getSettings() {
+export async function getSettings(): Promise<SiteSettings | undefined> {
   try {
     const siteSetting = await prisma.siteSettings.findFirst({
       orderBy: { createdAt: "desc" },
     });
 
-    return siteSetting;
+    return siteSetting ?? undefined;
   } catch {
-    return [];
+    return undefined;
   }
 }
 
@@ -63,8 +64,8 @@ async function upsertSiteSettings(data: SiteSettingsPayload): Promise<ActionResp
       },
       create: {
         id: settingsId,
-        siteName: data.siteName ?? "",
         ...data,
+        siteName: data.siteName ?? "",
       },
       update: data,
     });
@@ -74,7 +75,7 @@ async function upsertSiteSettings(data: SiteSettingsPayload): Promise<ActionResp
     return {
       success: true,
       message: "Settings saved successfully",
-      data: setting,
+      data: setting ?? {},
     };
   } catch (error) {
     return {
