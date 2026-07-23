@@ -91,8 +91,6 @@ export async function saveGeneralSettings(formData: FormData): Promise<ActionRes
   const payload = {
     siteName: String(formData.get("siteName") ?? "").trim(),
     legalName: getOptionalString(formData, "legalName"),
-    tagline: getOptionalString(formData, "tagline"),
-    description: getOptionalString(formData, "description"),
     primaryEmail: getOptionalString(formData, "primaryEmail"),
     primaryPhone: getOptionalString(formData, "primaryPhone"),
     websiteUrl: getOptionalString(formData, "websiteUrl"),

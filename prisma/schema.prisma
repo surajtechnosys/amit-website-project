@@ -111,8 +111,6 @@ model SiteSettings {
 
   siteName           String
   legalName          String?
-  tagline            String?
-  description        String? @db.Text
   primaryEmail       String?
   primaryPhone       String?
   websiteUrl         String?

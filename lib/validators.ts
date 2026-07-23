@@ -43,8 +43,6 @@ export const enquirySchema = z.object({
 export const generalSettingsSchema = z.object({
   siteName: z.string().min(1, "Site name is required"),
   legalName: nullableOptionalString,
-  tagline: nullableOptionalString,
-  description: nullableOptionalString,
   primaryEmail: nullableOptionalEmail,
   primaryPhone: nullableOptionalString,
   websiteUrl: nullableOptionalUrl,

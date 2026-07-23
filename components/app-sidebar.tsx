@@ -23,7 +23,8 @@ import {
   Settings,
   UsersIcon,
   Mails,
-  ClipboardPenLine
+  ClipboardPenLine,
+  BookOpen
 } from "lucide-react"
 
 const data = {
@@ -82,6 +83,11 @@ const data = {
       title: "Banner",
       url: "/admin/banner",
       icon: <BarChart3 />,
+    },
+    {
+      title: "Page",
+      url: "/admin/page",
+      icon: <BookOpen />,
     },
     {
       title: "Configuration",

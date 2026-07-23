@@ -190,22 +190,6 @@ export default function GeneralComponent({ setting }: { setting?: any }) {
             />
           </div>
 
-          <Field
-            label="Tagline"
-            id="tagline"
-            defaultValue={configuration?.tagline}
-          />
-
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              name="description"
-              className="min-h-[96px] rounded-xl"
-              defaultValue={configuration?.description}
-            />
-          </div>
-
           <Separator />
 
           <div className="grid gap-4 md:grid-cols-2">
