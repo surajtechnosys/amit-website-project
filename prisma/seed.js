@@ -597,9 +597,6 @@ async function seedSettings() {
     update: {
       siteName: "AS Services",
       legalName: "Global Business Support Services Delivered from India",
-      tagline: "Global delivery from India",
-      description:
-        "Helping organizations scale through offshore back-office operations, recovery support services, reporting, analytics, IT Services and operational excellence.",
       aboutTagline: "About AS Services",
       aboutTitle:
         "A focused operating model built for scale, quality, and steady delivery.",
