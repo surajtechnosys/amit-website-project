@@ -35,6 +35,8 @@ export function GuestNavbar({ settings }: { settings: any }) {
   const isTransparentHeader = isHomePage && !scrolled;
   const [services, setServices] = useState([])
 
+  console.log("settings", settings)
+
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
@@ -44,7 +46,6 @@ export function GuestNavbar({ settings }: { settings: any }) {
     window.addEventListener("scroll", onScroll, { passive: true });
 
     getServices().then((res: any) => {
-
       setServices(res)
     })
 
@@ -67,7 +68,7 @@ export function GuestNavbar({ settings }: { settings: any }) {
           onClick={() => setMobileOpen(false)}
         >
           <Image
-            src={settings?.logoPath || logo}
+            src={settings?.logoPath ? "/api" + settings.logoPath : logo}
             alt="AS Services logo"
             width={180}
             height={36}

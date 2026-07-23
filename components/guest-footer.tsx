@@ -93,7 +93,7 @@ export function GuestFooter({
           <div className="max-w-sm">
             <Link href="/" className="inline-flex items-center">
               <Image
-                src={settings?.logoPath ?? logo}
+                src={settings?.logoPath ? "/api" + settings.logoPath : logo}
                 alt={settings?.siteName ?? "AS Services Logo"}
                 width={180}
                 height={60}

@@ -17,7 +17,7 @@ export const getBannerColumns = ({ onDelete }: Props): ColumnDef<any>[] => [
 
       return banner.image ? (
         <img
-          src={banner.image}
+          src={"/api" + banner.image}
           alt={banner.title}
           className="w-10 h-10 rounded-full object-cover"
         />

@@ -630,7 +630,7 @@ export default function Home({ setting }: { setting?: any }) {
                 return (
                   <div className="relative h-[220px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
                     <Image
-                      src={src}
+                      src={"/api" + src}
                       alt="Global delivery model preview"
                       fill
                       className="object-contain object-center p-3"

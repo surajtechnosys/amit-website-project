@@ -219,7 +219,7 @@ const UserForm = ({ data, update = false }: UserFormProps) => {
                         />
                       ) : (data && data.image && (
                         <img
-                          src={data?.image}
+                          src={"/api" + data?.image}
                           alt="Preview"
                           className="h-10 w-10 border object-cover"
                         />

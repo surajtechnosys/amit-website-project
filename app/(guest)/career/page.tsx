@@ -84,7 +84,7 @@ export default async function CareerPage() {
       <section className="relative isolate overflow-hidden bg-black/90 pt-32 text-white sm:pt-36">
         <div className="absolute inset-0">
           <Image
-            src={herobanner2}
+            src={"/api" + herobanner2}
             alt=""
             fill
             priority

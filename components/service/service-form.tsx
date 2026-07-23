@@ -264,7 +264,7 @@ const ServiceForm = ({ categories, data, update }: ServiceFormProps) => {
                                             <img
                                                 src={preview}
                                                 alt="Preview"
-                                                className="h-32 w-full rounded-md object-cover"
+                                                className="h-10 w-10 border object-cover"
                                             />
                                         )}
                                     </div>
@@ -309,7 +309,7 @@ const ServiceForm = ({ categories, data, update }: ServiceFormProps) => {
 
 
                         <br />
-                         <FormField
+                        <FormField
                             control={form.control}
                             name="serviceBenefits.description"
                             render={({ field }) => (

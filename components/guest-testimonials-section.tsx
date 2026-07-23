@@ -17,7 +17,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
     <article className="group overflow-hidden rounded-[2rem] border border-[2px] border-orange-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition-transform duration-300 hover:-translate-y-1">
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
-          src={testimonial.image as string}
+          src={testimonial.image ? "/api" + testimonial.image : ""}
           alt={testimonial.name}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"

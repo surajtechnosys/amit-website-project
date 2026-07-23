@@ -75,7 +75,7 @@ export function GuestGlobalDeliveryModelSection({ settings }: { settings?: any }
           <div className="rounded-[1.5rem] border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-3 shadow-[0_10px_30px_rgba(15,23,42,0.04)] sm:p-4">
             <div className="relative h-[260px] overflow-hidden rounded-[1.2rem] bg-white sm:h-[320px] lg:h-[380px]">
               <Image
-                src={imageSrc}
+                src={"/api" +  imageSrc}
                 alt="Global delivery model flowchart"
                 fill
                 className="object-cover object-center"

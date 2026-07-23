@@ -263,7 +263,7 @@ export function GuestHeroSection({ settings, banners }: any) {
                         ].join(" ")}
                       >
                         <Image
-                          src={banner.image}
+                          src={"/api" + banner.image}
                           alt={banner.tagline}
                           fill
                           sizes="100vw"

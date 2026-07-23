@@ -24,7 +24,7 @@ export const getUserColumns = ({
 
         return user.image ? (
           <img
-            src={user.image}
+            src={"/api" +user.image}
             alt={user.name}
             className="w-10 h-10 rounded-full object-cover"
           />

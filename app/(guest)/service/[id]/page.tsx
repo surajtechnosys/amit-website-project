@@ -58,7 +58,7 @@ function ServiceVisual({ service }: { service: Service }) {
       />
       <div className="detail-orbit absolute inset-0 rounded-lg border border-white/12 bg-white/10 p-5 shadow-[0_30px_110px_rgba(0,0,0,0.25)] backdrop-blur">
         
-        <Image src={service.image as string} alt={service.title} fill className="object-cover object-center rounded-lg" />
+        <Image src={"/api" + service.image as string} alt={service.title} fill className="object-cover object-center rounded-lg" />
  
         {/* <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ export default async function ServiceDetailPage({
           {service?.data?.image && (
             <div className="absolute inset-0 scale-110 blur-2xl">
               <Image
-                src={service.data.image as string}
+                src={"/api" + service.data.image as string}
                 alt="Background"
                 fill
                 priority
