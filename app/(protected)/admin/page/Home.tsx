@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { saveHomePageSettings } from "@/lib/actions/settings-action";
+import type { SiteSettings } from "@/lib/generated/prisma";
 
 function parseList(value: string | null | undefined, fallback: string[] = []) {
   if (!value) return fallback;
@@ -39,6 +40,12 @@ type MetricItem = {
   key: string;
   value: number;
 };
+
+const metricFallbacks: MetricItem[] = [
+  { key: "Team Members", value: 48 },
+  { key: "Happy Customers", value: 120 },
+  { key: "Operational Support", value: 24 },
+];
 
 function parseCardList(
   value: string | null | undefined,
@@ -114,15 +121,12 @@ function getPreviewSrc(value: string | null | undefined) {
   return null;
 }
 
-export default function Home({ setting }: { setting?: any }) {
+export default function Home({ setting }: { setting?: SiteSettings }) {
   const [pending, startTransition] = useTransition();
   const [configuration, setConfiguration] = useState(setting);
-  const [heroTrustTags, setHeroTrustTags] = useState<string[]>(
+  const [trustMetrics, setTrustMetrics] = useState<MetricItem[]>(
     () =>
-      parseList(configuration?.heroTrustTags, [
-        "US Client Delivery Experience",
-        "Process-Driven Operations",
-      ]),
+      parseMetricList(configuration?.heroTrustTags, metricFallbacks),
   );
   const [aboutButtons, setAboutButtons] = useState<string[]>(
     () =>
@@ -215,15 +219,12 @@ export default function Home({ setting }: { setting?: any }) {
           return;
         }
 
-        setConfiguration(res.data);
-        setHeroTrustTags(
-          parseList(res.data?.heroTrustTags, [
-            "US Client Delivery Experience",
-            "Process-Driven Operations",
-          ]),
-        );
+        const nextSetting = res.data as SiteSettings | undefined;
+
+        setConfiguration(nextSetting);
+        setTrustMetrics(parseMetricList(nextSetting?.heroTrustTags, metricFallbacks));
         setAboutButtons(
-          parseList(res.data?.aboutButtons, [
+          parseList(nextSetting?.aboutButtons, [
             "Transition",
             "Operations",
             "Training",
@@ -231,7 +232,7 @@ export default function Home({ setting }: { setting?: any }) {
           ]),
         );
         setDeliveryModelItems(
-          parseList(res.data?.deliveryModelItems, [
+          parseList(nextSetting?.deliveryModelItems, [
             "Founded in 2024",
             "Supporting global clients",
             "Backoffice Operations with IT Consulting & Support",
@@ -243,7 +244,7 @@ export default function Home({ setting }: { setting?: any }) {
           ]),
         );
         setWhyCards(
-          parseCardList(res.data?.whyClientsCards, [
+          parseCardList(nextSetting?.whyClientsCards, [
             {
               title: "Scalable Teams",
               summary: "Flexible delivery capacity that grows with your needs.",
@@ -263,7 +264,7 @@ export default function Home({ setting }: { setting?: any }) {
           ]),
         );
         setGlobalDeliveryImagePreview(
-          getPreviewSrc(res.data?.globalDeliveryImagePath),
+          getPreviewSrc(nextSetting?.globalDeliveryImagePath),
         );
 
         toast.success("Homepage content saved successfully");
@@ -294,27 +295,10 @@ export default function Home({ setting }: { setting?: any }) {
 
             <div className="grid gap-4 md:grid-cols-2">
               <Field
-                label="Tagline"
-                id="tagline"
-                defaultValue={configuration?.tagline}
-                placeholder="Global delivery from India"
-              />
-              <Field
                 label="Title"
                 id="legalName"
                 defaultValue={configuration?.legalName}
                 placeholder="Global Business Support Services Delivered from India"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                name="description"
-                className="min-h-[120px] rounded-xl"
-                defaultValue={configuration?.description}
-                placeholder="Helping organizations scale through offshore back-office operations..."
               />
             </div>
 
@@ -361,9 +345,7 @@ export default function Home({ setting }: { setting?: any }) {
               name="siteName"
               value={configuration?.siteName ?? "AS Services"}
             />
-            <input type="hidden" name="tagline" value={configuration?.tagline ?? ""} />
             <input type="hidden" name="legalName" value={configuration?.legalName ?? ""} />
-            <input type="hidden" name="description" value={configuration?.description ?? ""} />
 
             <div className="grid gap-4 md:grid-cols-2">
               <Field
@@ -386,7 +368,7 @@ export default function Home({ setting }: { setting?: any }) {
                 id="aboutDescription"
                 name="aboutDescription"
                 className="min-h-[120px] rounded-xl"
-                defaultValue={configuration?.aboutDescription}
+                defaultValue={configuration?.aboutDescription ?? ""}
                 placeholder="We combine back-office operations, IT consulting, and support services..."
               />
             </div>
@@ -431,9 +413,7 @@ export default function Home({ setting }: { setting?: any }) {
               name="siteName"
               value={configuration?.siteName ?? "AS Services"}
             />
-            <input type="hidden" name="tagline" value={configuration?.tagline ?? ""} />
             <input type="hidden" name="legalName" value={configuration?.legalName ?? ""} />
-            <input type="hidden" name="description" value={configuration?.description ?? ""} />
             <input type="hidden" name="aboutTagline" value={configuration?.aboutTagline ?? ""} />
             <input type="hidden" name="aboutTitle" value={configuration?.aboutTitle ?? ""} />
             <input type="hidden" name="aboutDescription" value={configuration?.aboutDescription ?? ""} />
@@ -496,9 +476,7 @@ export default function Home({ setting }: { setting?: any }) {
               name="siteName"
               value={configuration?.siteName ?? "AS Services"}
             />
-            <input type="hidden" name="tagline" value={configuration?.tagline ?? ""} />
             <input type="hidden" name="legalName" value={configuration?.legalName ?? ""} />
-            <input type="hidden" name="description" value={configuration?.description ?? ""} />
             <input type="hidden" name="aboutTagline" value={configuration?.aboutTagline ?? ""} />
             <input type="hidden" name="aboutTitle" value={configuration?.aboutTitle ?? ""} />
             <input type="hidden" name="aboutDescription" value={configuration?.aboutDescription ?? ""} />
@@ -531,7 +509,7 @@ export default function Home({ setting }: { setting?: any }) {
                 id="whyClientsDescription"
                 name="whyClientsDescription"
                 className="min-h-[120px] rounded-xl"
-                defaultValue={configuration?.whyClientsDescription}
+                defaultValue={configuration?.whyClientsDescription ?? ""}
                 placeholder="Our delivery model gives clients flexible teams..."
               />
             </div>
@@ -602,7 +580,7 @@ export default function Home({ setting }: { setting?: any }) {
                 id="globalDeliveryDescription"
                 name="globalDeliveryDescription"
                 className="min-h-[120px] rounded-xl"
-                defaultValue={configuration?.globalDeliveryDescription}
+                defaultValue={configuration?.globalDeliveryDescription ?? ""}
                 placeholder="This flowchart maps the exact delivery handoff..."
               />
             </div>

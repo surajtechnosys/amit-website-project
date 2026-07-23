@@ -162,8 +162,6 @@ export async function saveHomePageSettings(formData: FormData): Promise<ActionRe
   const payload = {
     siteName: String(formData.get("siteName") ?? "").trim(),
     legalName: getOptionalString(formData, "legalName"),
-    tagline: getOptionalString(formData, "tagline"),
-    description: getOptionalString(formData, "description"),
     teamMembers: getOptionalString(formData, "teamMembers"),
     happyCustomers: getOptionalString(formData, "happyCustomers"),
     operationalSupport: getOptionalString(formData, "operationalSupport"),
