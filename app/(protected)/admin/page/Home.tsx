@@ -114,7 +114,6 @@ function getPreviewSrc(value: string | null | undefined) {
   return null;
 }
 
-<<<<<<< Updated upstream
 export default function Home({ setting }: { setting?: any }) {
   const [pending, startTransition] = useTransition();
   const [configuration, setConfiguration] = useState(setting);
@@ -128,44 +127,6 @@ export default function Home({ setting }: { setting?: any }) {
   const [aboutButtons, setAboutButtons] = useState<string[]>(
     () =>
       parseList(configuration?.aboutButtons, [
-=======
-type HomeSettings = {
-  siteName?: string | null;
-  tagline?: string | null;
-  legalName?: string | null;
-  description?: string | null;
-  heroTrustTags?: string | null;
-  aboutButtons?: string | null;
-  aboutTagline?: string | null;
-  aboutTitle?: string | null;
-  aboutDescription?: string | null;
-  deliveryModelTitle?: string | null;
-  deliveryModelItems?: string | null;
-  whyClientsTagline?: string | null;
-  whyClientsTitle?: string | null;
-  whyClientsDescription?: string | null;
-  whyClientsCards?: string | null;
-  globalDeliveryImagePath?: string | null;
-  globalDeliveryTagline?: string | null;
-  globalDeliveryTitle?: string | null;
-  globalDeliveryDescription?: string | null;
-};
-
-export default function Home({ setting }: { setting?: HomeSettings }) {
-  const [pending, startTransition] = useTransition();
-  const [configuration, setConfiguration] = useState(setting);
-  const [trustMetrics, setTrustMetrics] = useState<MetricItem[]>(
-    () =>
-      parseMetricList(configuration?.heroTrustTags, [
-        { key: "Team Members", value: 48 },
-        { key: "Happy Customers", value: 120 },
-        { key: "Operational Support", value: 24 },
-      ]),
-  );
-  const [aboutButtons, setAboutButtons] = useState<string[]>(
-    () =>
-      parseList(configuration?.aboutButtons, [
->>>>>>> Stashed changes
         "Transition",
         "Operations",
         "Training",
@@ -254,7 +215,6 @@ export default function Home({ setting }: { setting?: HomeSettings }) {
           return;
         }
 
-<<<<<<< Updated upstream
         setConfiguration(res.data);
         setHeroTrustTags(
           parseList(res.data?.heroTrustTags, [
@@ -265,19 +225,6 @@ export default function Home({ setting }: { setting?: HomeSettings }) {
         setAboutButtons(
           parseList(res.data?.aboutButtons, [
             "Transition",
-=======
-        setConfiguration(res.data);
-        setTrustMetrics(
-          parseMetricList(res.data?.heroTrustTags, [
-            { key: "Team Members", value: 48 },
-            { key: "Happy Customers", value: 120 },
-            { key: "Operational Support", value: 24 },
-          ]),
-        );
-        setAboutButtons(
-          parseList(res.data?.aboutButtons, [
-            "Transition",
->>>>>>> Stashed changes
             "Operations",
             "Training",
             "Scalability",
@@ -371,54 +318,6 @@ export default function Home({ setting }: { setting?: HomeSettings }) {
               />
             </div>
 
-<<<<<<< Updated upstream
-            <div className="grid gap-4 md:grid-cols-3">
-              <Field
-                label="Team Members"
-                id="teamMembers"
-                defaultValue={configuration?.teamMembers}
-                placeholder="48"
-              />
-              <Field
-                label="Happy Customers"
-                id="happyCustomers"
-                defaultValue={configuration?.happyCustomers}
-                placeholder="120"
-              />
-              <Field
-                label="Operational Support"
-                id="operationalSupport"
-                defaultValue={configuration?.operationalSupport}
-                placeholder="24/7"
-              />
-            </div>
-
-            <ListEditor
-              label="Trust Tags"
-              name="heroTrustTags"
-              items={heroTrustTags}
-              onChange={setHeroTrustTags}
-              placeholder="US Client Delivery Experience"
-            />
-
-            <div className="flex justify-end">
-              <Button
-                type="submit"
-                className="rounded-full px-5"
-                disabled={pending}
-              >
-                {pending ? (
-                  <Loader2 className="mr-2 size-4 animate-spin" />
-                ) : (
-                  <Save className="mr-2 size-4" />
-                )}
-                Save Hero Banner
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-=======
             <MetricEditor
               label="Trust Metrics"
               items={trustMetrics}
@@ -448,7 +347,6 @@ export default function Home({ setting }: { setting?: HomeSettings }) {
           </form>
         </CardContent>
       </Card>
->>>>>>> Stashed changes
 
       <Card className="border-slate-200/80 shadow-sm">
         <CardHeader className="border-b border-slate-200/70 py-4">

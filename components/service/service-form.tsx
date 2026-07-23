@@ -261,14 +261,6 @@ const ServiceForm = ({ categories, data, update }: ServiceFormProps) => {
                                                 }
                                             }}
                                         />
-<<<<<<< Updated upstream
-                                        {preview && (
-                                            <img
-                                                src={preview}
-                                                alt="Preview"
-                                                className="h-10 w-10 border object-cover"
-                                            />
-=======
                                         {preview && (
                                             <Image
                                                 src={preview}
@@ -277,7 +269,6 @@ const ServiceForm = ({ categories, data, update }: ServiceFormProps) => {
                                                 height={256}
                                                 className="h-32 w-full rounded-md object-cover"
                                             />
->>>>>>> Stashed changes
                                         )}
                                     </div>
                                 </FormControl>

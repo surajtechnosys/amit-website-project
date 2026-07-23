@@ -33,31 +33,6 @@ const heroSlides = [
   },
 ];
 
-<<<<<<< Updated upstream
-const trustMetrics = [
-  { label: "Team Members", key: "teamMembers", suffix: "+" },
-  { label: "Happy Customers", key: "happyCustomers", suffix: "+" },
-  { label: "Operational Support", key: "operationalSupport", suffix: "" },
-];
-
-function parseList(value: string | null | undefined, fallback: string[]) {
-  if (!value) return fallback;
-
-  const trimmed = value.trim();
-  if (!trimmed) return fallback;
-
-  try {
-    const parsed = JSON.parse(trimmed);
-    if (Array.isArray(parsed)) {
-      return parsed.map((item) => String(item).trim()).filter(Boolean);
-    }
-  } catch {
-    // fall through
-  }
-
-  return trimmed.split(",").map((item) => item.trim()).filter(Boolean);
-}
-=======
 type MetricItem = {
   key: string;
   value: number;
@@ -94,7 +69,6 @@ function parseMetricList(
 
   return fallback;
 }
->>>>>>> Stashed changes
 
 function AnimatedCounter({
   value,
@@ -170,18 +144,6 @@ export function GuestHeroSection({
   const [metricsVisible, setMetricsVisible] = React.useState(false);
   const [activeSlide, setActiveSlide] = React.useState(0);
   const metricsRef = React.useRef<HTMLDivElement | null>(null);
-<<<<<<< Updated upstream
-  const heroTagline = settings?.tagline ?? "Global delivery from India";
-  const heroTitle =
-    settings?.legalName ?? "Global Business Support Services Delivered from India";
-  const heroDescription =
-    settings?.description ??
-    "Helping organizations scale through offshore back-office operations, recovery support services, reporting, analytics, IT Services and operational excellence.";
-  const trustTags = parseList(settings?.heroTrustTags, [
-    "US Client Delivery Experience",
-    "Process-Driven Operations",
-  ]);
-=======
   const heroTagline = settings?.tagline ?? "Global delivery from India";
   const heroTitle =
     settings?.legalName ?? "Global Business Support Services Delivered from India";
@@ -193,7 +155,6 @@ export function GuestHeroSection({
     "US Client Delivery Experience",
     "Process-Driven Operations",
   ];
->>>>>>> Stashed changes
 
   React.useEffect(() => {
     const node = metricsRef.current;
