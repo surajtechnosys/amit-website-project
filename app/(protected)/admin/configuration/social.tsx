@@ -49,7 +49,7 @@ export default function SocialComponent({ setting }: { setting?: any }) {
 
               toast.success("Settings saved successfully");
 
-              setConfiguration({ ...res.data });
+              setConfiguration({  ...(res.data ?? {}) });
             });
           }}
           className="space-y-5"

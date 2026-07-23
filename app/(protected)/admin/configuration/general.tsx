@@ -146,7 +146,7 @@ export default function GeneralComponent({ setting }: { setting?: any }) {
 
         toast.success("Settings saved successfully");
 
-        setConfiguration({...res.data})
+        setConfiguration({ ...(res.data ?? {})})
       } catch (error) {
         toast.error("Upload failed", {
           description:
