@@ -49,7 +49,7 @@ export async function generateMetadata({
   }
 }
 
-function ServiceVisual({ service }: { service: Service }) {
+function ServiceVisual({ service }: any) {
 
   return (
     <div className="relative min-h-[380px] lg:min-h-[480px]">
@@ -58,57 +58,8 @@ function ServiceVisual({ service }: { service: Service }) {
       />
       <div className="detail-orbit absolute inset-0 rounded-lg border border-white/12 bg-white/10 p-5 shadow-[0_30px_110px_rgba(0,0,0,0.25)] backdrop-blur">
         
-        <Image src={"/api" + service.image as string} alt={service.title} fill className="object-cover object-center rounded-lg" />
+        <Image src={service.image ? "/api" + service.image as string : ""} alt={service.title} fill className="object-cover object-center rounded-lg" />
  
-        {/* <div className="flex items-center justify-between border-b border-white/10 pb-4">
-          <div className="flex items-center gap-3">
-            <div>
-              <p className="text-xs font-semibold uppercase text-slate-400">
-                Service Engine
-              </p>
-              <p className="text-sm font-semibold text-white">{service.title}</p>
-            </div>
-          </div>
-          <span className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 text-xs font-semibold text-emerald-200">
-            Active
-          </span>
-        </div> */}
-
-        {/* <div className="mt-6 grid gap-4">
-          {["24/7-ready", "QA checks", "SOP-led"].map((metric, index) => (
-            <div
-              key={index}
-              className="detail-pulse rounded-lg border border-white/10 bg-slate-950/35 p-4"
-              style={{ animationDelay: `${index * 180}ms` }}
-            >
-              <div className="flex items-center justify-between text-sm">
-                <span className="font-semibold text-white">{metric}</span>
-                <span className="text-cyan-200">{84 + index * 5}%</span>
-              </div>
-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
-                <span
-                  className="detail-fill block h-full rounded-full bg-cyan-300"
-                  style={{
-                    animationDelay: `${250 + index * 160}ms`,
-                    width: `${84 + index * 5}%`,
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-        </div> */}
-
-        {/* <div className="mt-6 grid grid-cols-3 gap-3">
-          {["Plan", "Run", "Improve"].map((item, index) => (
-            <div
-              key={item}
-              className="detail-node rounded-lg border border-white/10 bg-white/5 p-3 text-center"
-              style={{ animationDelay: `${index * 140}ms` }}
-            >
-              <p className="text-xs font-semibold text-cyan-200">{item}</p>
-            </div>
-          ))}
-        </div> */}
       </div>
     </div>
   )
@@ -292,7 +243,7 @@ export default async function ServiceDetailPage({
             <div className="relative">
               <Target className="size-9 text-cyan-200" />
               <h2 className="mt-5 text-3xl font-semibold">
-                {service.data?.outcomeFocuses?.name}
+                {service.data?.outcomeFocuses?.title}
               </h2>
               <p className="mt-4 text-sm leading-7 text-slate-300">
                 {service.data?.outcomeFocuses?.description}

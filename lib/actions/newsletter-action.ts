@@ -12,10 +12,11 @@ type ActionResponse = {
   message: string;
 };
 
-export async function getNewsletter(): Promise<Newsletter[]> {
+export async function getNewsletter(props : any): Promise<Newsletter[]> {
   try {
     const newsletter = await prisma.newsletterSubscription.findMany({
       orderBy: { createdAt: "desc" },
+      where: {...props}
     });
 
     return newsletter;

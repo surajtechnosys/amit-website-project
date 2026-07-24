@@ -9,6 +9,8 @@ import {
   sendNewServiceAnnouncement,
   type ServiceAnnouncementPayload,
 } from "../mail/service-announcement";
+import { getNewsletter } from "./newsletter-action";
+import { Status } from "../types";
 
 type SectionRecord = Record<string, unknown> & {
   items?: unknown;
@@ -237,6 +239,8 @@ export async function createService(
         },
         distinct: ["email"],
       });
+
+      await getNewsletter({status: Status.ACTIVE});
 
       await sendNewServiceAnnouncement({
         settings,

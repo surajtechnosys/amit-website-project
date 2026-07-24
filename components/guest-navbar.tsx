@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, ChevronDown, Menu, X } from "lucide-react";
 import logo from "../images/AS-Services-Logo.jpg";
 import { GuestEnquiryPopup } from "@/components/guest-enquiry-popup";
 import { getServices } from "@/lib/actions/service-action"
@@ -13,6 +13,9 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Button } from "./ui/button";
+import { Status } from "@/lib/types";
 
 
 const navLinkBase =
@@ -34,6 +37,7 @@ export function GuestNavbar({ settings }: { settings: any }) {
   const isHomePage = pathname === "/";
   const isTransparentHeader = isHomePage && !scrolled;
   const [services, setServices] = useState([])
+  const [open, setOpen] = useState(false);
 
   console.log("settings", settings)
 
@@ -135,55 +139,56 @@ export function GuestNavbar({ settings }: { settings: any }) {
                     Careers
                   </Link>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <div className="group/services">
-                    <Link
-                      href="/service"
-                      className={[
-                        navLinkBase,
-                        "flex items-center gap-2 mt-1",
-                        isTransparentHeader ? "text-white" : "text-slate-700",
-                      ].join(" ")}
+                <NavigationMenuItem className="relative">
+                  <DropdownMenu open={open} onOpenChange={setOpen}>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className={[
+                          "group bg-transparent border-0 shadow-none",
+                          "hover:bg-transparent",
+                          "active:bg-transparent",
+                          "focus:bg-transparent",
+                          "data-[state=open]:bg-transparent",
+                          "focus-visible:bg-transparent",
+                          "focus-visible:ring-0 focus-visible:ring-offset-0",
+                          "data-[state=open]:text-orange-500",
+                          "data-[state=open]:after:scale-x-100",
+                          "data-[state=open]:after:bg-orange-500 mt-1",
+
+                          navLinkBase,
+                          isTransparentHeader ? "text-white" : "text-orange-500",
+                        ].join(" ")}
+                      >
+                        Services
+                        <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                      </Button>
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuContent
+                      align="center"
+                      sideOffset={16}
+                      className="w-[420px] rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl"
                     >
-                      Services
-                      <span className="text-[0.7rem] font-normal opacity-70 transition group-hover/services:rotate-180">
-                        ▼
-                      </span>
-                    </Link>
+                      <div className="grid gap-3">
+                        {services.length > 0 && services.filter((service: any) => service.status === Status.ACTIVE).map((item: any) => (
+                          <Link
+                            key={item.id}
+                            href={`/service/${item.id}`}
+                            className="group flex items-start gap-4 rounded-2xl border border-slate-200 p-4 transition-all duration-300 hover:border-orange-300 hover:bg-orange-50 hover:shadow-lg"
+                             onClick={() => setOpen(false)}
+                          >
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-slate-900">
+                                {item.title}
+                              </h4>
+                            </div>
 
-                    <div className="invisible absolute left-1/2 top-full z-50 mt-4 w-[34rem] -translate-x-1/2 translate-y-2 rounded-[1.5rem] border border-slate-200 bg-white p-4 opacity-0 shadow-[0_24px_70px_rgba(15,23,42,0.14)] transition-all duration-200 group-hover/services:visible group-hover/services:translate-y-0 group-hover/services:opacity-100 group-focus-within/services:visible group-focus-within/services:translate-y-0 group-focus-within/services:opacity-100">
-                      <div className="mb-3 flex items-center justify-between border-b border-slate-100 pb-3">
-                        <div>
-                          <p className="text-sm font-semibold text-slate-950">
-                            Explore services
-                          </p>
-                         
-                        </div>
-                        <Link
-                          href="/service"
-                          className="rounded-full bg-orange-500 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-orange-600"
-                        >
-                          View all
-                        </Link>
-                      </div>
-
-                      <div className="grid gap-3 md:grid-cols-2">
-                        {services.slice(0, 4).map((item: any, index: number) => (
-                          <Link 
-                            key={item.id} 
-                            href={ "/service/" + item.id} 
-                            className={dropdownLinkBase}  
-                            onClick={(e) => {
-                              (e.currentTarget as HTMLAnchorElement).blur();
-                            }}>
-                            <p className="text-sm font-semibold text-slate-950">
-                              {item.title}
-                            </p>
                           </Link>
                         ))}
                       </div>
-                    </div>
-                  </div>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem className="ml-2">
@@ -217,21 +222,21 @@ export function GuestNavbar({ settings }: { settings: any }) {
             <div className="grid gap-3">
               <Link
                 href="/"
-              className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
-              onClick={() => {
-                setMobileOpen(false);
-              }}
-            >
-              Home
+                className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
+                onClick={() => {
+                  setMobileOpen(false);
+                }}
+              >
+                Home
               </Link>
               <Link
                 href="/about"
-              className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
-              onClick={() => {
-                setMobileOpen(false);
-              }}
-            >
-              About us
+                className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
+                onClick={() => {
+                  setMobileOpen(false);
+                }}
+              >
+                About us
               </Link>
               <Link
                 href="/service"
@@ -242,23 +247,23 @@ export function GuestNavbar({ settings }: { settings: any }) {
               >
                 Services
               </Link>
-              <Link
+              <Link 
                 href="/career"
-              className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
-              onClick={() => {
-                setMobileOpen(false);
-              }}
-            >
-              Careers
+                className="rounded-2xl px-3 py-2.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950"
+                onClick={() => {
+                  setMobileOpen(false);
+                }}
+              >
+                Careers
               </Link>
               <Link
                 href="/contact"
-              className={ctaPrimaryBase + " justify-center"}
-              onClick={() => {
-                setMobileOpen(false);
-              }}
-            >
-              Contact us
+                className={ctaPrimaryBase + " justify-center"}
+                onClick={() => {
+                  setMobileOpen(false);
+                }}
+              >
+                Contact us
               </Link>
               <GuestEnquiryPopup
                 triggerClassName={ctaSecondaryBase + " w-full justify-center"}
